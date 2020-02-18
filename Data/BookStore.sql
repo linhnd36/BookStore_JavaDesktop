@@ -69,3 +69,5 @@ CREATE TABLE UserHaveDiscount
 
 
 SELECT bookID,titleBook,imagerName,descriptionBook,price,author FROM dbo.Books WHERE quantityBook > 0 AND statusBook = 'ready'
+SELECT roleUser FROM dbo.Users WHERE userID = 'linhnd' AND pass = '123456'N
+SELECT bookID,titleBook,imagerName,descriptionBook,price,author,category FROM dbo.Books WHERE quantityBook > 0 AND statusBook = 'ready' AND (titleBook LIKE N'%%' OR category LIKE N'%%')

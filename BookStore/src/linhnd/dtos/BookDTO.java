@@ -18,13 +18,14 @@ public class BookDTO implements Serializable{
     public BookDTO() {
     }
 
-    public BookDTO(String bookId, String titleBook, String author, String desBook, String imagerName, String price) {
+    public BookDTO(String bookId, String titleBook, String author, String desBook, String imagerName, String price,String category) {
         this.bookId = bookId;
         this.titleBook = titleBook;
         this.author = author;
         this.desBook = desBook;
         this.imagerName = imagerName;
         this.price = price;
+        this.category =  category;
     }
 
     
@@ -36,6 +37,7 @@ public class BookDTO implements Serializable{
         v.add(desBook);
         v.add(price);
         v.add(author);
+        v.add(category);
         return v;
     }
 
