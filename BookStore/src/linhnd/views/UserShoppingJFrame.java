@@ -6,7 +6,11 @@
 package linhnd.views;
 
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import linhnd.daos.BookDAO;
 import linhnd.dtos.BookDTO;
@@ -18,14 +22,19 @@ import linhnd.dtos.UserDTO;
  */
 public class UserShoppingJFrame extends javax.swing.JFrame {
 
+    private int count = 0;
     DefaultTableModel tableModelBook = null;
+    DefaultTableModel tableModekCart = null;
+    ArrayList<BookDTO> listBookInCart = new ArrayList<>();
 
     /**
      * Creates new form WelcomeJFrame
      */
     public UserShoppingJFrame() {
+
         initComponents();
         tableModelBook = (DefaultTableModel) tableViewBook.getModel();
+        tableModekCart = (DefaultTableModel) tableViewCart.getModel();
         txt_UserID.setText(UserDTO.userID);
         firstController();
     }
@@ -53,14 +62,16 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
         txt_Price = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        txt_quantity = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        txt_idBookInCart = new javax.swing.JLabel();
         JFrameCart = new javax.swing.JFrame();
         jLabel10 = new javax.swing.JLabel();
         txt_userIDCart = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tableViewCart = new javax.swing.JTable();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
@@ -70,6 +81,16 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
         txt_money = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         txt_total = new javax.swing.JLabel();
+        jButton10 = new javax.swing.JButton();
+        JFrameUpdateAmount = new javax.swing.JFrame();
+        jLabel16 = new javax.swing.JLabel();
+        txt_nameBookUpdate = new javax.swing.JLabel();
+        txt_QuantityOld = new javax.swing.JLabel();
+        jButton11 = new javax.swing.JButton();
+        jButton12 = new javax.swing.JButton();
+        jButton13 = new javax.swing.JButton();
+        jLabel17 = new javax.swing.JLabel();
+        txt_IdBookInUpdate = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
@@ -80,6 +101,8 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         txt_UserID = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
+        txt_BookinCart = new javax.swing.JLabel();
+        jButton9 = new javax.swing.JButton();
 
         imagerBook.setBackground(new java.awt.Color(0, 0, 0));
         imagerBook.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imager/1.jpg"))); // NOI18N
@@ -90,6 +113,11 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/linhnd/icons/icons8_add_shopping_cart_30px_1.png"))); // NOI18N
         jButton4.setText("ADD to Cart");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Author :");
 
@@ -105,67 +133,90 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
 
         txt_Price.setText("price");
 
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 51, 0));
         jLabel7.setText("BOOK DETAIL");
 
         jLabel8.setText("Quantity :");
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jTextField1.setText("1");
-
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/linhnd/icons/icons8_plus_20px.png"))); // NOI18N
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/linhnd/icons/icons8_plus_20px.png"))); // NOI18N
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/linhnd/icons/icons8_minus_20px.png"))); // NOI18N
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
+        txt_quantity.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        txt_quantity.setText("1");
+
+        jLabel15.setText("BookID :");
+
+        txt_idBookInCart.setText("id");
 
         javax.swing.GroupLayout JFrameDetailBookLayout = new javax.swing.GroupLayout(JFrameDetailBook.getContentPane());
         JFrameDetailBook.getContentPane().setLayout(JFrameDetailBookLayout);
         JFrameDetailBookLayout.setHorizontalGroup(
             JFrameDetailBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JFrameDetailBookLayout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addComponent(imagerBook, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(JFrameDetailBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(JFrameDetailBookLayout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addGroup(JFrameDetailBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel8))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(41, 41, 41)
+                        .addComponent(imagerBook, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(JFrameDetailBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(JFrameDetailBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txt_author, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
-                                .addComponent(txt_titleBook, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_Price, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(JFrameDetailBookLayout.createSequentialGroup()
-                                .addComponent(jButton6)
-                                .addGap(8, 8, 8)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton5))))
+                                .addGap(29, 29, 29)
+                                .addGroup(JFrameDetailBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel15))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(JFrameDetailBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(JFrameDetailBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(txt_author, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+                                        .addComponent(txt_titleBook, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txt_Price, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(JFrameDetailBookLayout.createSequentialGroup()
+                                        .addComponent(jButton6)
+                                        .addGap(12, 12, 12)
+                                        .addComponent(txt_quantity)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jButton5))
+                                    .addComponent(txt_idBookInCart)))
+                            .addGroup(JFrameDetailBookLayout.createSequentialGroup()
+                                .addGap(115, 115, 115)
+                                .addComponent(jButton4))))
                     .addGroup(JFrameDetailBookLayout.createSequentialGroup()
-                        .addGap(115, 115, 115)
-                        .addComponent(jButton4)))
+                        .addGap(318, 318, 318)
+                        .addComponent(jLabel7)))
                 .addContainerGap(63, Short.MAX_VALUE))
-            .addGroup(JFrameDetailBookLayout.createSequentialGroup()
-                .addGap(319, 319, 319)
-                .addComponent(jLabel7)
-                .addGap(0, 0, Short.MAX_VALUE))
         );
         JFrameDetailBookLayout.setVerticalGroup(
             JFrameDetailBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JFrameDetailBookLayout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(imagerBook, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(54, 54, 54))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JFrameDetailBookLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel7)
+                .addGap(35, 35, 35)
+                .addGroup(JFrameDetailBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(txt_idBookInCart))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(JFrameDetailBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(JFrameDetailBookLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(imagerBook, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(54, 54, 54))
-                    .addGroup(JFrameDetailBookLayout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(71, 71, 71)
                         .addGroup(JFrameDetailBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txt_titleBook, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))
@@ -183,17 +234,13 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
                             .addComponent(jLabel6))
                         .addGap(18, 18, 18)
                         .addGroup(JFrameDetailBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(JFrameDetailBookLayout.createSequentialGroup()
-                                .addComponent(jTextField1)
-                                .addGap(18, 18, 18))
-                            .addGroup(JFrameDetailBookLayout.createSequentialGroup()
-                                .addGroup(JFrameDetailBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jButton6)
-                                    .addComponent(jButton5))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addComponent(jButton4)
-                        .addGap(51, 51, 51))))
+                            .addComponent(jLabel8)
+                            .addComponent(jButton6)
+                            .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addComponent(txt_quantity))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton4)
+                .addGap(51, 51, 51))
         );
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -202,7 +249,7 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
 
         txt_userIDCart.setText("NAME");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableViewCart.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -218,10 +265,15 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(jTable1);
+        jScrollPane3.setViewportView(tableViewCart);
 
         jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/linhnd/icons/icons8_remove_20px.png"))); // NOI18N
         jButton7.setText("Remove");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         jButton8.setText("Đặt Hàng");
 
@@ -230,7 +282,7 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
         jLabel12.setText("Tạm Tính :");
 
         jLabel13.setForeground(new java.awt.Color(255, 0, 51));
-        jLabel13.setText("jLabel13");
+        jLabel13.setText("*Nhập mã giảm giá nếu bạn có !");
 
         txt_money.setText("total");
 
@@ -238,49 +290,56 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
 
         txt_total.setText("tongtien");
 
+        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/linhnd/icons/icons8_update_20px.png"))); // NOI18N
+        jButton10.setText("Update amount ");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout JFrameCartLayout = new javax.swing.GroupLayout(JFrameCart.getContentPane());
         JFrameCart.getContentPane().setLayout(JFrameCartLayout);
         JFrameCartLayout.setHorizontalGroup(
             JFrameCartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JFrameCartLayout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(txt_userIDCart, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33))
+                .addGap(295, 295, 295)
+                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(67, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JFrameCartLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(JFrameCartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JFrameCartLayout.createSequentialGroup()
-                        .addGap(154, 154, 154)
-                        .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(JFrameCartLayout.createSequentialGroup()
+                .addGroup(JFrameCartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, JFrameCartLayout.createSequentialGroup()
+                        .addGap(132, 132, 132)
+                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, JFrameCartLayout.createSequentialGroup()
+                        .addGap(161, 161, 161)
                         .addComponent(jLabel11)
                         .addGap(18, 18, 18)
-                        .addComponent(txt_codePromo, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(57, 57, 57))
-            .addGroup(JFrameCartLayout.createSequentialGroup()
-                .addGroup(JFrameCartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(JFrameCartLayout.createSequentialGroup()
+                        .addComponent(txt_codePromo, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, JFrameCartLayout.createSequentialGroup()
                         .addGap(61, 61, 61)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(JFrameCartLayout.createSequentialGroup()
-                        .addGap(141, 141, 141)
-                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(JFrameCartLayout.createSequentialGroup()
-                        .addGap(124, 124, 124)
-                        .addGroup(JFrameCartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel14)
+                        .addGroup(JFrameCartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(JFrameCartLayout.createSequentialGroup()
                                 .addComponent(jButton7)
-                                .addGap(104, 104, 104)
-                                .addComponent(jLabel12)))
-                        .addGap(34, 34, 34)
-                        .addGroup(JFrameCartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_money, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_total))))
-                .addContainerGap(72, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(JFrameCartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel14)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JFrameCartLayout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addComponent(jLabel12)))
+                                .addGap(34, 34, 34)
+                                .addGroup(JFrameCartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txt_money, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txt_total)))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(JFrameCartLayout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txt_userIDCart, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(44, 44, 44))
         );
         JFrameCartLayout.setVerticalGroup(
             JFrameCartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -290,34 +349,121 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
                         .addGap(28, 28, 28)
                         .addComponent(jLabel10))
                     .addGroup(JFrameCartLayout.createSequentialGroup()
-                        .addGap(44, 44, 44)
+                        .addGap(48, 48, 48)
                         .addComponent(txt_userIDCart, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(56, 56, 56)
+                .addGap(52, 52, 52)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(JFrameCartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton7)
                     .addComponent(jLabel12)
-                    .addComponent(txt_money, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_money, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton10))
                 .addGap(30, 30, 30)
                 .addGroup(JFrameCartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
                     .addComponent(txt_total))
-                .addGap(40, 40, 40)
-                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 15, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(12, 12, 12)
+                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
+                .addGap(43, 43, 43)
                 .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
+                .addGap(18, 18, 18)
                 .addGroup(JFrameCartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
                     .addComponent(txt_codePromo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26))
+                .addGap(27, 27, 27))
+        );
+
+        jLabel16.setText("Name Book :");
+
+        txt_nameBookUpdate.setText("name");
+
+        txt_QuantityOld.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        txt_QuantityOld.setForeground(new java.awt.Color(255, 0, 51));
+        txt_QuantityOld.setText("num");
+
+        jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/linhnd/icons/icons8_plus_20px.png"))); // NOI18N
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
+
+        jButton12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/linhnd/icons/icons8_minus_20px.png"))); // NOI18N
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
+
+        jButton13.setText("OK");
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
+
+        jLabel17.setText("IDBook :");
+
+        txt_IdBookInUpdate.setText("id");
+
+        javax.swing.GroupLayout JFrameUpdateAmountLayout = new javax.swing.GroupLayout(JFrameUpdateAmount.getContentPane());
+        JFrameUpdateAmount.getContentPane().setLayout(JFrameUpdateAmountLayout);
+        JFrameUpdateAmountLayout.setHorizontalGroup(
+            JFrameUpdateAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JFrameUpdateAmountLayout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addGroup(JFrameUpdateAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(JFrameUpdateAmountLayout.createSequentialGroup()
+                        .addGroup(JFrameUpdateAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(JFrameUpdateAmountLayout.createSequentialGroup()
+                                .addComponent(jLabel16)
+                                .addGap(28, 28, 28)
+                                .addComponent(txt_nameBookUpdate))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JFrameUpdateAmountLayout.createSequentialGroup()
+                                .addComponent(jButton12)
+                                .addGap(23, 23, 23)))
+                        .addGap(9, 9, 9)
+                        .addComponent(txt_QuantityOld))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, JFrameUpdateAmountLayout.createSequentialGroup()
+                        .addComponent(jLabel17)
+                        .addGap(47, 47, 47)
+                        .addComponent(txt_IdBookInUpdate)))
+                .addGap(32, 32, 32)
+                .addComponent(jButton11)
+                .addContainerGap(76, Short.MAX_VALUE))
+        );
+        JFrameUpdateAmountLayout.setVerticalGroup(
+            JFrameUpdateAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JFrameUpdateAmountLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(JFrameUpdateAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel16)
+                    .addComponent(txt_nameBookUpdate))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(JFrameUpdateAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel17)
+                    .addComponent(txt_IdBookInUpdate))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(JFrameUpdateAmountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton11)
+                    .addComponent(txt_QuantityOld)
+                    .addComponent(jButton12))
+                .addGap(18, 18, 18)
+                .addComponent(jButton13, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/linhnd/icons/icons8_shopping_cart_30px.png"))); // NOI18N
         jButton1.setText("CART");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("WELCOME ");
 
@@ -378,6 +524,18 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
             }
         });
 
+        txt_BookinCart.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txt_BookinCart.setForeground(new java.awt.Color(255, 51, 51));
+        txt_BookinCart.setText("0");
+
+        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/linhnd/icons/icons8_logout_rounded_left_20px.png"))); // NOI18N
+        jButton9.setText("LOGOUT");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -387,7 +545,9 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txt_BookinCart)
+                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(15, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -408,14 +568,20 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 877, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(19, 19, 19))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(jButton9)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jLabel9))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton1)
+                        .addComponent(jLabel9))
+                    .addComponent(txt_BookinCart))
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -428,18 +594,40 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
                     .addComponent(jButton3))
                 .addGap(55, 55, 55)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40))
+                .addGap(29, 29, 29)
+                .addComponent(jButton9)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void tableViewBookMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableViewBookMouseClicked
+        txt_quantity.setText("1");
+        String imagerUrl = null;
         int row = tableViewBook.getSelectedRow();
         String bookId = (String) tableModelBook.getValueAt(row, 0);
         if (row >= 0) {
+            txt_descriptionBook.disable();
             JFrameDetailBook.setSize(720, 550);
             JFrameDetailBook.setVisible(true);
+            try {
+                BookDAO dao = new BookDAO();
+                BookDTO dto = dao.getDetailOneBook(bookId);
+                txt_titleBook.setText(dto.getTitleBook());
+                txt_author.setText(dto.getAuthor());
+                txt_descriptionBook.setText(dto.getDesBook());
+                txt_Price.setText(dto.getPrice());
+                txt_idBookInCart.setText(bookId);
+                imagerUrl = "/imager/" + dto.getImagerName();
+                try {
+                    imagerBook.setIcon(new javax.swing.ImageIcon(getClass().getResource(imagerUrl)));
+                } catch (Exception e) {
+                    imagerBook.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imager/1.jpg")));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         // TODO add your handling code here:
     }//GEN-LAST:event_tableViewBookMouseClicked
@@ -460,6 +648,142 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
         firstController();
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        int quantity = Integer.parseInt(txt_quantity.getText());
+        quantity++;
+        txt_quantity.setText(String.valueOf(quantity));
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        int quantity = Integer.parseInt(txt_quantity.getText());
+        if (quantity > 1) {
+            quantity--;
+            txt_quantity.setText(String.valueOf(quantity));
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        txt_userIDCart.setText(UserDTO.userID);
+        JFrameCart.setSize(580, 830);
+        JFrameCart.setVisible(true);
+        try {
+            viewTableCart(listBookInCart);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        int quantityInCart = 0;
+        int check = 0;
+        int index = 0;
+        quantityInCart = Integer.parseInt(txt_quantity.getText());
+        String bookID = txt_idBookInCart.getText();
+        String nameBook = txt_titleBook.getText();
+        String author = txt_author.getText();
+        String price = txt_Price.getText();
+        if (!listBookInCart.isEmpty()) {
+            for (int i = 0; i < listBookInCart.size(); i++) {
+                if (bookID.equals(listBookInCart.get(i).getBookId())) {
+                    check++;
+                    index = i;
+                }
+            }
+            if (check > 0) {
+                quantityInCart = quantityInCart + listBookInCart.get(index).getQuantityUserBuy();
+                listBookInCart.get(index).setQuantityUserBuy(quantityInCart);
+            } else {
+                BookDTO dto = new BookDTO(bookID, nameBook, author, price, quantityInCart);
+                listBookInCart.add(dto);
+                count++;
+            }
+        } else {
+            BookDTO dto = new BookDTO(bookID, nameBook, author, price, quantityInCart);
+            listBookInCart.add(dto);
+            count++;
+        }
+        txt_BookinCart.setText(String.valueOf(count));
+        JOptionPane.showMessageDialog(this, "Add to cart sucessfull !");
+        JFrameDetailBook.dispose();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        WelcomeJFrame jf = new WelcomeJFrame();
+        jf.setVisible(true);
+        this.dispose();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        int row = tableViewCart.getSelectedRow();
+        if (row >= 0) {
+            JFrameCart.setVisible(false);
+            String bookId = (String) tableModekCart.getValueAt(row, 0);
+            for (int i = 0; i < listBookInCart.size(); i++) {
+                if (bookId.equals(listBookInCart.get(i).getBookId())) {
+                    int confirm = JOptionPane.showConfirmDialog(this, "Do you want delete book "+bookId+" from your cart");
+                    if (confirm == JOptionPane.YES_OPTION) {
+                        listBookInCart.remove(i);
+                        JFrameCart.setVisible(true);
+                    }                   
+                }
+            }
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        int row = tableViewCart.getSelectedRow();
+        if (row >=0) {
+            String amount = String.valueOf(tableModekCart.getValueAt(row, 4));
+            String nameBook = (String) tableModekCart.getValueAt(row, 1);
+            String idBook = (String) tableModekCart.getValueAt(row, 0);
+            txt_nameBookUpdate.setText(nameBook);
+            txt_QuantityOld.setText(amount);
+            txt_IdBookInUpdate.setText(idBook);
+            JFrameUpdateAmount.setSize(450,180);
+            JFrameUpdateAmount.setVisible(true);
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        int quantity = Integer.parseInt(txt_QuantityOld.getText());
+        quantity++;
+        txt_QuantityOld.setText(String.valueOf(quantity));
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        int quantity = Integer.parseInt(txt_QuantityOld.getText());
+        quantity--;
+        txt_QuantityOld.setText(String.valueOf(quantity));
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        String newQuantity = txt_QuantityOld.getText();
+        String idBook = txt_IdBookInUpdate.getText();
+        for (int i = 0; i < listBookInCart.size(); i++) {
+            if (idBook.equals(listBookInCart.get(i).getBookId())) {
+                listBookInCart.get(i).setQuantityUserBuy(Integer.parseInt(newQuantity));
+                JOptionPane.showMessageDialog(this, "Update Sucessfull");
+                JFrameUpdateAmount.dispose();
+                try {
+                    viewTableCart(listBookInCart);
+                } catch (Exception ex) {
+                    Logger.getLogger(UserShoppingJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        
+    }//GEN-LAST:event_jButton13ActionPerformed
     private void viewTableBook(List<BookDTO> list) throws Exception {
         tableModelBook.setRowCount(0);
         for (BookDTO bookDTO : list) {
@@ -467,8 +791,14 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
         }
     }
 
+    private void viewTableCart(List<BookDTO> list) throws Exception {
+        tableModekCart.setRowCount(0);
+        for (BookDTO bookDTO : list) {
+            tableModekCart.addRow(bookDTO.toVectorUserCart());
+        }
+    }
+
     private void firstController() {
-        
         try {
             BookDAO dao = new BookDAO();
             List<BookDTO> list = dao.getAllBook();
@@ -530,8 +860,13 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFrame JFrameCart;
     private javax.swing.JFrame JFrameDetailBook;
+    private javax.swing.JFrame JFrameUpdateAmount;
     private javax.swing.JLabel imagerBook;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
+    private javax.swing.JButton jButton12;
+    private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -539,12 +874,16 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -556,16 +895,21 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTable tableViewBook;
+    private javax.swing.JTable tableViewCart;
+    private javax.swing.JLabel txt_BookinCart;
+    private javax.swing.JLabel txt_IdBookInUpdate;
     private javax.swing.JLabel txt_Price;
+    private javax.swing.JLabel txt_QuantityOld;
     private javax.swing.JTextField txt_Search;
     private javax.swing.JLabel txt_UserID;
     private javax.swing.JLabel txt_author;
     private javax.swing.JTextField txt_codePromo;
     private javax.swing.JTextArea txt_descriptionBook;
+    private javax.swing.JLabel txt_idBookInCart;
     private javax.swing.JLabel txt_money;
+    private javax.swing.JLabel txt_nameBookUpdate;
+    private javax.swing.JLabel txt_quantity;
     private javax.swing.JLabel txt_titleBook;
     private javax.swing.JLabel txt_total;
     private javax.swing.JLabel txt_userIDCart;

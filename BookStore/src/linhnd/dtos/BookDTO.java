@@ -14,6 +14,7 @@ import java.util.Vector;
  */
 public class BookDTO implements Serializable{
     private String bookId,titleBook,author,desBook,imagerName,price,quantity,category;
+    private int quantityUserBuy;
 
     public BookDTO() {
     }
@@ -25,11 +26,34 @@ public class BookDTO implements Serializable{
         this.desBook = desBook;
         this.imagerName = imagerName;
         this.price = price;
-        this.category =  category;
+        this.category = category;
     }
 
-    
-    public Vector toVectorBookView(){
+    public BookDTO(String titleBook, String author, String desBook, String imagerName, String price) {
+        this.titleBook = titleBook;
+        this.author = author;
+        this.desBook = desBook;
+        this.imagerName = imagerName;
+        this.price = price;
+    }
+
+    public BookDTO(String bookId, String titleBook, String author, String price, int quantityUserBuy) {
+        this.bookId = bookId;
+        this.titleBook = titleBook;
+        this.author = author;
+        this.price = price;
+        this.quantityUserBuy = quantityUserBuy;
+    }
+
+    public int getQuantityUserBuy() {
+        return quantityUserBuy;
+    }
+
+    public void setQuantityUserBuy(int quantityUserBuy) {
+        this.quantityUserBuy = quantityUserBuy;
+    }
+
+    public Vector toVectorBookView() {
         Vector v = new Vector();
         v.add(bookId);
         v.add(titleBook);
@@ -38,6 +62,15 @@ public class BookDTO implements Serializable{
         v.add(price);
         v.add(author);
         v.add(category);
+        return v;
+    }
+    public Vector toVectorUserCart(){
+        Vector v = new Vector();
+        v.add(bookId);
+        v.add(titleBook);
+        v.add(author);
+        v.add(price);
+        v.add(quantityUserBuy);
         return v;
     }
 

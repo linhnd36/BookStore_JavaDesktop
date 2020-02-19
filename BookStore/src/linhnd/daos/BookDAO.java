@@ -92,4 +92,27 @@ public class BookDAO implements Serializable {
         }
         return result;
     }
+    public BookDTO getDetailOneBook(String bookID) throws Exception{
+        String titleBook,author,descriptionBook,price,imagerName;
+        BookDTO dto = null;
+        try {
+            String sql = "SELECT titleBook,author,descriptionBook,price,imagerName FROM dbo.Books WHERE bookID = ?";
+            conn = Myconnection.getMyConnection();
+            preStm = conn.prepareStatement(sql);
+            preStm.setString(1, bookID);
+            rs = preStm.executeQuery();
+            if (rs.next()) {
+                titleBook = rs.getString("titleBook");
+                author = rs.getString("author");
+                descriptionBook = rs.getString("descriptionBook");
+                price = rs.getString("price");
+                imagerName = rs.getString("imagerName");
+                descriptionBook = rs.getString("descriptionBook");
+                dto = new BookDTO(titleBook, author, descriptionBook, imagerName, price);
+            }
+        }finally{
+            closeConnection();
+        }
+        return dto;
+    }
 }
