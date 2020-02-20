@@ -13,7 +13,9 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import linhnd.daos.BookDAO;
+import linhnd.daos.PromotionDAO;
 import linhnd.dtos.BookDTO;
+import linhnd.dtos.PromotionDTO;
 import linhnd.dtos.UserDTO;
 
 /**
@@ -23,6 +25,7 @@ import linhnd.dtos.UserDTO;
 public class UserShoppingJFrame extends javax.swing.JFrame {
 
     private int count = 0;
+    private String totalFinalMoney;
     DefaultTableModel tableModelBook = null;
     DefaultTableModel tableModekCart = null;
     ArrayList<BookDTO> listBookInCart = new ArrayList<>();
@@ -72,16 +75,23 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
         txt_userIDCart = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tableViewCart = new javax.swing.JTable();
-        jButton7 = new javax.swing.JButton();
+        btn_remove = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         txt_codePromo = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
+        txt_desDiscount = new javax.swing.JLabel();
         txt_money = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         txt_total = new javax.swing.JLabel();
         jButton10 = new javax.swing.JButton();
+        jButton14 = new javax.swing.JButton();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        txt_discount = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jButton7 = new javax.swing.JButton();
         JFrameUpdateAmount = new javax.swing.JFrame();
         jLabel16 = new javax.swing.JLabel();
         txt_nameBookUpdate = new javax.swing.JLabel();
@@ -91,6 +101,19 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
         jButton13 = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
         txt_IdBookInUpdate = new javax.swing.JLabel();
+        JFrameAdress = new javax.swing.JFrame();
+        jLabel21 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        txt_inputAddress = new javax.swing.JTextArea();
+        jButton15 = new javax.swing.JButton();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jLabel22 = new javax.swing.JLabel();
+        txt_totalFinal = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        txt_outputUserID = new javax.swing.JLabel();
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
@@ -267,27 +290,34 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(tableViewCart);
 
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/linhnd/icons/icons8_remove_20px.png"))); // NOI18N
-        jButton7.setText("Remove");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        btn_remove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/linhnd/icons/icons8_remove_20px.png"))); // NOI18N
+        btn_remove.setText("Remove");
+        btn_remove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                btn_removeActionPerformed(evt);
             }
         });
 
         jButton8.setText("Đặt Hàng");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         jLabel11.setText("Mã giảm giá :");
 
         jLabel12.setText("Tạm Tính :");
 
-        jLabel13.setForeground(new java.awt.Color(255, 0, 51));
-        jLabel13.setText("*Nhập mã giảm giá nếu bạn có !");
+        txt_desDiscount.setForeground(new java.awt.Color(255, 0, 51));
+        txt_desDiscount.setText("*Nhập mã giảm giá nếu bạn có !");
 
+        txt_money.setForeground(new java.awt.Color(255, 0, 51));
         txt_money.setText("total");
 
         jLabel14.setText("Thành Tiền :");
 
+        txt_total.setForeground(new java.awt.Color(255, 51, 51));
         txt_total.setText("tongtien");
 
         jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/linhnd/icons/icons8_update_20px.png"))); // NOI18N
@@ -298,48 +328,94 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
             }
         });
 
+        jButton14.setText("submit");
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
+
+        jLabel18.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel18.setText("VND");
+
+        jLabel19.setText("Khuyến mãi :");
+
+        txt_discount.setText("km");
+
+        jLabel20.setText("%");
+
+        jLabel13.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel13.setText("VND");
+
+        jButton7.setText("delete");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout JFrameCartLayout = new javax.swing.GroupLayout(JFrameCart.getContentPane());
         JFrameCart.getContentPane().setLayout(JFrameCartLayout);
         JFrameCartLayout.setHorizontalGroup(
             JFrameCartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(JFrameCartLayout.createSequentialGroup()
-                .addGap(295, 295, 295)
-                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(67, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JFrameCartLayout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txt_userIDCart, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44))
+            .addGroup(JFrameCartLayout.createSequentialGroup()
+                .addGap(61, 61, 61)
                 .addGroup(JFrameCartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, JFrameCartLayout.createSequentialGroup()
-                        .addGap(132, 132, 132)
-                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, JFrameCartLayout.createSequentialGroup()
-                        .addGap(161, 161, 161)
-                        .addComponent(jLabel11)
-                        .addGap(18, 18, 18)
-                        .addComponent(txt_codePromo, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, JFrameCartLayout.createSequentialGroup()
-                        .addGap(61, 61, 61)
-                        .addGroup(JFrameCartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(JFrameCartLayout.createSequentialGroup()
+                        .addGroup(JFrameCartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(JFrameCartLayout.createSequentialGroup()
-                                .addComponent(jButton7)
+                                .addComponent(btn_remove)
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton10)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(JFrameCartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel14)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JFrameCartLayout.createSequentialGroup()
-                                        .addGap(10, 10, 10)
-                                        .addComponent(jLabel12)))
-                                .addGap(34, 34, 34)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                                .addComponent(jLabel12))
+                            .addGroup(JFrameCartLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addGroup(JFrameCartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txt_money, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txt_total)))
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jLabel14)
+                                    .addComponent(jLabel19))))
+                        .addGap(18, 18, 18)
+                        .addGroup(JFrameCartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(JFrameCartLayout.createSequentialGroup()
+                                .addComponent(txt_discount)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel20))
+                            .addComponent(txt_money, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel18)
+                        .addGap(46, 46, 46))
                     .addGroup(JFrameCartLayout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txt_userIDCart, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(44, 44, 44))
+                        .addGroup(JFrameCartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(JFrameCartLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(JFrameCartLayout.createSequentialGroup()
+                                .addComponent(txt_desDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txt_total)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel13)))
+                        .addGap(47, 47, 47))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, JFrameCartLayout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(JFrameCartLayout.createSequentialGroup()
+                .addGap(100, 100, 100)
+                .addComponent(jLabel11)
+                .addGap(18, 18, 18)
+                .addComponent(txt_codePromo, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton7)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         JFrameCartLayout.setVerticalGroup(
             JFrameCartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -355,23 +431,32 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(JFrameCartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton7)
+                    .addComponent(btn_remove)
                     .addComponent(jLabel12)
                     .addComponent(txt_money, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton10))
-                .addGap(30, 30, 30)
+                    .addComponent(jButton10)
+                    .addComponent(jLabel18))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(JFrameCartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14)
-                    .addComponent(txt_total))
-                .addGap(12, 12, 12)
-                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
-                .addGap(43, 43, 43)
+                    .addComponent(jLabel19)
+                    .addComponent(txt_discount)
+                    .addComponent(jLabel20))
+                .addGap(30, 30, 30)
+                .addGroup(JFrameCartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(JFrameCartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel14)
+                        .addComponent(txt_total)
+                        .addComponent(jLabel13))
+                    .addComponent(txt_desDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
                 .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(31, 31, 31)
                 .addGroup(JFrameCartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(txt_codePromo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27))
+                    .addComponent(txt_codePromo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton7))
+                .addGap(38, 38, 38))
         );
 
         jLabel16.setText("Name Book :");
@@ -453,6 +538,98 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jButton13, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
                 .addContainerGap())
+        );
+
+        jLabel21.setText("Input Your's address :");
+
+        txt_inputAddress.setColumns(20);
+        txt_inputAddress.setRows(5);
+        jScrollPane4.setViewportView(txt_inputAddress);
+
+        jButton15.setText("Đặt Hàng");
+
+        buttonGroup1.add(jRadioButton1);
+        jRadioButton1.setText("Thanh toán Online");
+
+        buttonGroup1.add(jRadioButton2);
+        jRadioButton2.setText("Thanh toán COD");
+
+        jLabel22.setText("Tổng tiền :");
+
+        txt_totalFinal.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txt_totalFinal.setForeground(new java.awt.Color(255, 0, 0));
+        txt_totalFinal.setText("mm");
+
+        jLabel24.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel24.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel24.setText("VND");
+
+        jLabel25.setText("User ID:");
+
+        txt_outputUserID.setText("user");
+
+        javax.swing.GroupLayout JFrameAdressLayout = new javax.swing.GroupLayout(JFrameAdress.getContentPane());
+        JFrameAdress.getContentPane().setLayout(JFrameAdressLayout);
+        JFrameAdressLayout.setHorizontalGroup(
+            JFrameAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JFrameAdressLayout.createSequentialGroup()
+                .addGroup(JFrameAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(JFrameAdressLayout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addGroup(JFrameAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel21)
+                            .addGroup(JFrameAdressLayout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addGroup(JFrameAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(JFrameAdressLayout.createSequentialGroup()
+                                        .addGap(44, 44, 44)
+                                        .addGroup(JFrameAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel25)
+                                            .addComponent(jLabel22))
+                                        .addGap(31, 31, 31)
+                                        .addGroup(JFrameAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(JFrameAdressLayout.createSequentialGroup()
+                                                .addComponent(txt_totalFinal)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jLabel24)
+                                                .addGap(83, 83, 83))
+                                            .addGroup(JFrameAdressLayout.createSequentialGroup()
+                                                .addComponent(txt_outputUserID)
+                                                .addGap(0, 0, Short.MAX_VALUE))))))))
+                    .addGroup(JFrameAdressLayout.createSequentialGroup()
+                        .addGap(76, 76, 76)
+                        .addGroup(JFrameAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(JFrameAdressLayout.createSequentialGroup()
+                                .addComponent(jRadioButton1)
+                                .addGap(18, 18, 18)
+                                .addComponent(jRadioButton2))
+                            .addComponent(jButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(48, Short.MAX_VALUE))
+        );
+        JFrameAdressLayout.setVerticalGroup(
+            JFrameAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JFrameAdressLayout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(jLabel21)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addGroup(JFrameAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel25)
+                    .addComponent(txt_outputUserID))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(JFrameAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel22)
+                    .addComponent(txt_totalFinal)
+                    .addComponent(jLabel24))
+                .addGap(33, 33, 33)
+                .addGroup(JFrameAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRadioButton2)
+                    .addComponent(jRadioButton1))
+                .addGap(26, 26, 26)
+                .addComponent(jButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -671,6 +848,7 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
         JFrameCart.setVisible(true);
         try {
             viewTableCart(listBookInCart);
+            txt_total.setText(sumMoneyBeforeDiscount(sumTotalMoney(), "0"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -720,34 +898,41 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton9ActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    private void btn_removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_removeActionPerformed
         int row = tableViewCart.getSelectedRow();
         if (row >= 0) {
             JFrameCart.setVisible(false);
             String bookId = (String) tableModekCart.getValueAt(row, 0);
             for (int i = 0; i < listBookInCart.size(); i++) {
                 if (bookId.equals(listBookInCart.get(i).getBookId())) {
-                    int confirm = JOptionPane.showConfirmDialog(this, "Do you want delete book "+bookId+" from your cart");
+                    int confirm = JOptionPane.showConfirmDialog(this, "Do you want delete book " + bookId + " from your cart");
                     if (confirm == JOptionPane.YES_OPTION) {
                         listBookInCart.remove(i);
+                        count--;
+                        txt_BookinCart.setText(String.valueOf(count));
+                        try {
+                            viewTableCart(listBookInCart);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                         JFrameCart.setVisible(true);
-                    }                   
+                    }
                 }
             }
         }
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton7ActionPerformed
+    }//GEN-LAST:event_btn_removeActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         int row = tableViewCart.getSelectedRow();
-        if (row >=0) {
+        if (row >= 0) {
             String amount = String.valueOf(tableModekCart.getValueAt(row, 4));
             String nameBook = (String) tableModekCart.getValueAt(row, 1);
             String idBook = (String) tableModekCart.getValueAt(row, 0);
             txt_nameBookUpdate.setText(nameBook);
             txt_QuantityOld.setText(amount);
             txt_IdBookInUpdate.setText(idBook);
-            JFrameUpdateAmount.setSize(450,180);
+            JFrameUpdateAmount.setSize(450, 180);
             JFrameUpdateAmount.setVisible(true);
         }
         // TODO add your handling code here:
@@ -762,7 +947,9 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         int quantity = Integer.parseInt(txt_QuantityOld.getText());
-        quantity--;
+        if (quantity > 1) {
+            quantity--;
+        }
         txt_QuantityOld.setText(String.valueOf(quantity));
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton12ActionPerformed
@@ -782,8 +969,58 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
                 }
             }
         }
-        
+
     }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+        String codePromo = txt_codePromo.getText();
+        String userId = txt_userIDCart.getText();
+        PromotionDAO dao = new PromotionDAO();
+        PromotionDTO dto;
+        try {
+            if (!codePromo.equals("")) {
+                if (dao.checkDiscount(userId, codePromo)) {
+                    dto = dao.getDiscountPro(codePromo);
+                    txt_desDiscount.setText(dto.getDesDis());
+                    txt_discount.setText(dto.getCodeDis());
+                    txt_total.setText(sumMoneyBeforeDiscount(sumTotalMoney(), dto.getCodeDis()));
+                    txt_codePromo.setVisible(false);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Code Discount not found !");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton14ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        txt_codePromo.setText("");
+        txt_codePromo.setVisible(true);
+        txt_desDiscount.setText("*Nhập mã giảm giá nếu bạn có !");
+        txt_discount.setText("0");
+        try {
+            viewTableCart(listBookInCart);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        if (listBookInCart.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Cart is Empty");
+        } else {
+            totalFinalMoney = txt_total.getText();
+            txt_outputUserID.setText(UserDTO.userID);
+            txt_totalFinal.setText(totalFinalMoney);
+            JFrameAdress.setSize(400, 500);
+            JFrameAdress.setVisible(true);
+            JFrameCart.setVisible(false);
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton8ActionPerformed
     private void viewTableBook(List<BookDTO> list) throws Exception {
         tableModelBook.setRowCount(0);
         for (BookDTO bookDTO : list) {
@@ -795,6 +1032,15 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
         tableModekCart.setRowCount(0);
         for (BookDTO bookDTO : list) {
             tableModekCart.addRow(bookDTO.toVectorUserCart());
+        }
+        txt_money.setText(sumTotalMoney());
+        String codeDis = txt_codePromo.getText();
+        if (codeDis.equals("")) {
+            txt_total.setText(sumMoneyBeforeDiscount(sumTotalMoney(), "0"));
+        } else {
+            PromotionDAO dao = new PromotionDAO();
+            PromotionDTO dto = dao.getDiscountPro(codeDis);
+            txt_total.setText(sumMoneyBeforeDiscount(sumTotalMoney(), dto.getCodeDis()));
         }
     }
 
@@ -819,6 +1065,21 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
                 e.printStackTrace();
             }
         }
+    }
+
+    private String sumTotalMoney() {
+        int total = 0;
+        for (int i = 0; i < listBookInCart.size(); i++) {
+            total = total + Integer.parseInt(listBookInCart.get(i).getPrice()) * listBookInCart.get(i).getQuantityUserBuy();
+        }
+        String stringTotal = String.valueOf(total);
+        return stringTotal;
+    }
+
+    private String sumMoneyBeforeDiscount(String stringTotal, String codeDis) throws Exception {
+        float result = 0;
+        result = Float.parseFloat(stringTotal) - Float.parseFloat(stringTotal) * (Float.parseFloat(codeDis) / 100);
+        return String.valueOf(result);
     }
 
     /**
@@ -858,15 +1119,20 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JFrame JFrameAdress;
     private javax.swing.JFrame JFrameCart;
     private javax.swing.JFrame JFrameDetailBook;
     private javax.swing.JFrame JFrameUpdateAmount;
+    private javax.swing.JButton btn_remove;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel imagerBook;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
+    private javax.swing.JButton jButton14;
+    private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -884,7 +1150,14 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -892,9 +1165,12 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable tableViewBook;
     private javax.swing.JTable tableViewCart;
     private javax.swing.JLabel txt_BookinCart;
@@ -905,13 +1181,18 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel txt_UserID;
     private javax.swing.JLabel txt_author;
     private javax.swing.JTextField txt_codePromo;
+    private javax.swing.JLabel txt_desDiscount;
     private javax.swing.JTextArea txt_descriptionBook;
+    private javax.swing.JLabel txt_discount;
     private javax.swing.JLabel txt_idBookInCart;
+    private javax.swing.JTextArea txt_inputAddress;
     private javax.swing.JLabel txt_money;
     private javax.swing.JLabel txt_nameBookUpdate;
+    private javax.swing.JLabel txt_outputUserID;
     private javax.swing.JLabel txt_quantity;
     private javax.swing.JLabel txt_titleBook;
     private javax.swing.JLabel txt_total;
+    private javax.swing.JLabel txt_totalFinal;
     private javax.swing.JLabel txt_userIDCart;
     // End of variables declaration//GEN-END:variables
 }
