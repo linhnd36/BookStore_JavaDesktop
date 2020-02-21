@@ -45,6 +45,13 @@ public class BookDTO implements Serializable{
         this.quantityUserBuy = quantityUserBuy;
     }
 
+    public BookDTO(String bookId, String titleBook, String quantity) {
+        this.bookId = bookId;
+        this.titleBook = titleBook;
+        this.quantity = quantity;
+    }
+    
+
     public int getQuantityUserBuy() {
         return quantityUserBuy;
     }
@@ -71,6 +78,13 @@ public class BookDTO implements Serializable{
         v.add(author);
         v.add(price);
         v.add(quantityUserBuy);
+        return v;
+    }
+    public Vector toVectorNotification(){
+        Vector v = new Vector();
+        v.add(bookId);
+        v.add(titleBook);
+        v.add(quantity);
         return v;
     }
 

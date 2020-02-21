@@ -28,6 +28,7 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
     private String totalFinalMoney;
     DefaultTableModel tableModelBook = null;
     DefaultTableModel tableModekCart = null;
+    DefaultTableModel tableModelNotification = null;
     ArrayList<BookDTO> listBookInCart = new ArrayList<>();
 
     /**
@@ -38,6 +39,7 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
         initComponents();
         tableModelBook = (DefaultTableModel) tableViewBook.getModel();
         tableModekCart = (DefaultTableModel) tableViewCart.getModel();
+        tableModelNotification = (DefaultTableModel) tableViewNotification.getModel();
         txt_UserID.setText(UserDTO.userID);
         firstController();
     }
@@ -106,14 +108,18 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         txt_inputAddress = new javax.swing.JTextArea();
         jButton15 = new javax.swing.JButton();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        radio_online = new javax.swing.JRadioButton();
+        radio_cod = new javax.swing.JRadioButton();
         jLabel22 = new javax.swing.JLabel();
         txt_totalFinal = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
         txt_outputUserID = new javax.swing.JLabel();
         buttonGroup1 = new javax.swing.ButtonGroup();
+        JFrameNotification = new javax.swing.JFrame();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tableViewNotification = new javax.swing.JTable();
+        jLabel23 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
@@ -547,12 +553,17 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
         jScrollPane4.setViewportView(txt_inputAddress);
 
         jButton15.setText("Đặt Hàng");
+        jButton15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton15ActionPerformed(evt);
+            }
+        });
 
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setText("Thanh toán Online");
+        buttonGroup1.add(radio_online);
+        radio_online.setText("Thanh toán Online");
 
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setText("Thanh toán COD");
+        buttonGroup1.add(radio_cod);
+        radio_cod.setText("Thanh toán COD");
 
         jLabel22.setText("Tổng tiền :");
 
@@ -601,9 +612,9 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
                         .addGap(76, 76, 76)
                         .addGroup(JFrameAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(JFrameAdressLayout.createSequentialGroup()
-                                .addComponent(jRadioButton1)
+                                .addComponent(radio_online)
                                 .addGap(18, 18, 18)
-                                .addComponent(jRadioButton2))
+                                .addComponent(radio_cod))
                             .addComponent(jButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(48, Short.MAX_VALUE))
         );
@@ -625,11 +636,58 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
                     .addComponent(jLabel24))
                 .addGap(33, 33, 33)
                 .addGroup(JFrameAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton2)
-                    .addComponent(jRadioButton1))
+                    .addComponent(radio_cod)
+                    .addComponent(radio_online))
                 .addGap(26, 26, 26)
                 .addComponent(jButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(36, Short.MAX_VALUE))
+        );
+
+        tableViewNotification.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "BookID", "Title", "Còn lại"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane5.setViewportView(tableViewNotification);
+        if (tableViewNotification.getColumnModel().getColumnCount() > 0) {
+            tableViewNotification.getColumnModel().getColumn(0).setPreferredWidth(30);
+            tableViewNotification.getColumnModel().getColumn(2).setPreferredWidth(20);
+        }
+
+        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel23.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel23.setText("List sách còn lại trong kho:");
+
+        javax.swing.GroupLayout JFrameNotificationLayout = new javax.swing.GroupLayout(JFrameNotification.getContentPane());
+        JFrameNotification.getContentPane().setLayout(JFrameNotificationLayout);
+        JFrameNotificationLayout.setHorizontalGroup(
+            JFrameNotificationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JFrameNotificationLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(JFrameNotificationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel23))
+                .addContainerGap(27, Short.MAX_VALUE))
+        );
+        JFrameNotificationLayout.setVerticalGroup(
+            JFrameNotificationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JFrameNotificationLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel23)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -1009,18 +1067,55 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        List<BookDTO> listBookNotEnoughQuantity = new ArrayList<>();
         if (listBookInCart.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Cart is Empty");
         } else {
-            totalFinalMoney = txt_total.getText();
-            txt_outputUserID.setText(UserDTO.userID);
-            txt_totalFinal.setText(totalFinalMoney);
-            JFrameAdress.setSize(400, 500);
-            JFrameAdress.setVisible(true);
-            JFrameCart.setVisible(false);
+            try {
+                BookDAO dao = new BookDAO();
+                for (BookDTO bookDTO : listBookInCart) {
+                    if (dao.checkQuantityBook(bookDTO.getBookId(), bookDTO.getQuantityUserBuy()) != null) {
+                        BookDTO bookNotEnough = dao.checkQuantityBook(bookDTO.getBookId(), bookDTO.getQuantityUserBuy());
+                        listBookNotEnoughQuantity.add(bookNotEnough);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            if (listBookNotEnoughQuantity.isEmpty()) {
+                totalFinalMoney = txt_total.getText();
+                txt_outputUserID.setText(UserDTO.userID);
+                txt_totalFinal.setText(totalFinalMoney);
+                JFrameAdress.setSize(400, 500);
+                JFrameAdress.setVisible(true);
+                JFrameCart.setVisible(false);
+            } else {
+                JFrameNotification.setSize(450, 300);
+                JFrameNotification.setVisible(true);
+                try {
+                    viewTableNotification(listBookNotEnoughQuantity);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         }
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
+        String adress = txt_inputAddress.getText();
+        String payment = null;
+        radio_cod.setSelected(true);
+        if (radio_cod.isSelected()) {
+            payment = "cod";
+        }else if (radio_online.isSelected()) {
+            payment = "online";
+        }
+        if (!adress.equals("")) {
+            
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton15ActionPerformed
     private void viewTableBook(List<BookDTO> list) throws Exception {
         tableModelBook.setRowCount(0);
         for (BookDTO bookDTO : list) {
@@ -1041,6 +1136,12 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
             PromotionDAO dao = new PromotionDAO();
             PromotionDTO dto = dao.getDiscountPro(codeDis);
             txt_total.setText(sumMoneyBeforeDiscount(sumTotalMoney(), dto.getCodeDis()));
+        }
+    }
+    private void viewTableNotification(List<BookDTO> list) throws Exception{
+        tableModelNotification.setRowCount(0);
+        for (BookDTO bookDTO : list) {
+            tableModelNotification.addRow(bookDTO.toVectorNotification());
         }
     }
 
@@ -1122,6 +1223,7 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
     private javax.swing.JFrame JFrameAdress;
     private javax.swing.JFrame JFrameCart;
     private javax.swing.JFrame JFrameDetailBook;
+    private javax.swing.JFrame JFrameNotification;
     private javax.swing.JFrame JFrameUpdateAmount;
     private javax.swing.JButton btn_remove;
     private javax.swing.ButtonGroup buttonGroup1;
@@ -1156,6 +1258,7 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
@@ -1165,14 +1268,16 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JRadioButton radio_cod;
+    private javax.swing.JRadioButton radio_online;
     private javax.swing.JTable tableViewBook;
     private javax.swing.JTable tableViewCart;
+    private javax.swing.JTable tableViewNotification;
     private javax.swing.JLabel txt_BookinCart;
     private javax.swing.JLabel txt_IdBookInUpdate;
     private javax.swing.JLabel txt_Price;

@@ -1,4 +1,4 @@
-package linhns.conns;
+package linhnd.conns;
 
 import java.io.Serializable;
 import java.sql.Connection;

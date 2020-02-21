@@ -12,7 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import linhnd.dtos.PromotionDTO;
-import linhns.conns.Myconnection;
+import linhnd.conns.Myconnection;
 
 /**
  *

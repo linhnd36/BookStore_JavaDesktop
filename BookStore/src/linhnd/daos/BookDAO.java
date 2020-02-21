@@ -12,7 +12,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import linhnd.dtos.BookDTO;
-import linhns.conns.Myconnection;
+import linhnd.conns.Myconnection;
 
 /**
  *
@@ -109,6 +109,26 @@ public class BookDAO implements Serializable {
                 imagerName = rs.getString("imagerName");
                 descriptionBook = rs.getString("descriptionBook");
                 dto = new BookDTO(titleBook, author, descriptionBook, imagerName, price);
+            }
+        }finally{
+            closeConnection();
+        }
+        return dto;
+    }
+    public BookDTO checkQuantityBook(String bookID, int quantityUserBuy) throws Exception{
+        String quantityInData,titleBook;
+        BookDTO dto = null;
+        try {
+            String sql = " SELECT quantityBook,titleBook FROM dbo.Books WHERE bookID = ? AND quantityBook < ? ";
+            conn = Myconnection.getMyConnection();
+            preStm = conn.prepareStatement(sql);
+            preStm.setString(1, bookID);
+            preStm.setString(2, String.valueOf(quantityUserBuy));
+            rs = preStm.executeQuery();
+            if (rs.next()) {
+                quantityInData = rs.getString("quantityBook");
+                titleBook = rs.getString("titleBook");
+                dto = new BookDTO(bookID, titleBook, quantityInData);
             }
         }finally{
             closeConnection();

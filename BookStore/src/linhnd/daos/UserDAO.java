@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import linhns.conns.Myconnection;
+import linhnd.conns.Myconnection;
 
 /**
  *
