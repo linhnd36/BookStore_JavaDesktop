@@ -74,3 +74,31 @@ SELECT bookID,titleBook,imagerName,descriptionBook,price,author,category FROM db
 
 SELECT titleBook,author,descriptionBook,price,imagerName FROM dbo.Books WHERE bookID = ?;
 SELECT quantityBook,titleBook FROM dbo.Books WHERE bookID = ? AND quantityBook < ?;
+INSERT dbo.Builds
+        ( buildID ,
+          dateBuild ,
+          totalBuild ,
+          payment ,
+          statusBuild ,
+          descriptionBuild ,
+          userID
+        )
+VALUES  ( '' , -- buildID - varchar(30)
+          '' , -- dateBuild - varchar(50)
+          '' , -- totalBuild - varchar(30)
+          '' , -- payment - varchar(20)
+          '' , -- statusBuild - varchar(20)
+          '' , -- descriptionBuild - varchar(50)
+          ''  -- userID - varchar(20)
+        );
+INSERT dbo.BookinBuild
+        ( bookID, buildID, quantity )
+VALUES  ( '', -- bookID - varchar(30)
+          '', -- buildID - varchar(30)
+          0  -- quantity - int
+          );
+
+UPDATE dbo.Books SET quantityBook = ? WHERE bookID = ?;
+SELECT quantityBook FROM dbo.Books WHERE bookID = ?;
+DELETE dbo.UserHaveDiscount WHERE userID = ? AND discountID = ?
+

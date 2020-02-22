@@ -6,17 +6,25 @@
 package linhnd.views;
 
 import java.awt.event.KeyEvent;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import linhnd.daos.BookDAO;
+import linhnd.daos.BookInBuildDAO;
+import linhnd.daos.BuildDAO;
 import linhnd.daos.PromotionDAO;
+import linhnd.daos.UserHaveDiscountDAO;
 import linhnd.dtos.BookDTO;
+import linhnd.dtos.BookInBuildDTO;
+import linhnd.dtos.BuildDTO;
 import linhnd.dtos.PromotionDTO;
 import linhnd.dtos.UserDTO;
+import linhnd.dtos.UserHaveDiscountDTO;
 
 /**
  *
@@ -120,6 +128,7 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
         jScrollPane5 = new javax.swing.JScrollPane();
         tableViewNotification = new javax.swing.JTable();
         jLabel23 = new javax.swing.JLabel();
+        JFrameHistory = new javax.swing.JFrame();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
@@ -132,6 +141,7 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         txt_BookinCart = new javax.swing.JLabel();
         jButton9 = new javax.swing.JButton();
+        jButton16 = new javax.swing.JButton();
 
         imagerBook.setBackground(new java.awt.Color(0, 0, 0));
         imagerBook.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imager/1.jpg"))); // NOI18N
@@ -690,6 +700,17 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
+        javax.swing.GroupLayout JFrameHistoryLayout = new javax.swing.GroupLayout(JFrameHistory.getContentPane());
+        JFrameHistory.getContentPane().setLayout(JFrameHistoryLayout);
+        JFrameHistoryLayout.setHorizontalGroup(
+            JFrameHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        JFrameHistoryLayout.setVerticalGroup(
+            JFrameHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/linhnd/icons/icons8_shopping_cart_30px.png"))); // NOI18N
@@ -771,21 +792,19 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
             }
         });
 
+        jButton16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/linhnd/icons/icons8_activity_history_20px.png"))); // NOI18N
+        jButton16.setText("History");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txt_BookinCart)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(15, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 877, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
@@ -801,12 +820,18 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
                         .addComponent(jButton3)
                         .addGap(46, 46, 46))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 877, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(19, 19, 19))))
+                        .addComponent(jLabel9)
+                        .addGap(655, 655, 655)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_BookinCart)
+                        .addContainerGap())))
             .addGroup(layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addComponent(jButton9)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -829,8 +854,10 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
                     .addComponent(jButton3))
                 .addGap(55, 55, 55)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addComponent(jButton9)
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton9)
+                    .addComponent(jButton16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -1089,6 +1116,7 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
                 JFrameAdress.setSize(400, 500);
                 JFrameAdress.setVisible(true);
                 JFrameCart.setVisible(false);
+                radio_cod.setSelected(true);
             } else {
                 JFrameNotification.setSize(450, 300);
                 JFrameNotification.setVisible(true);
@@ -1104,15 +1132,64 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
 
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
         String adress = txt_inputAddress.getText();
+        String buildId, dateBuild, totalBuild, statusBuild = null, desBuild, userID, quantity, bookID, discountID;
         String payment = null;
-        radio_cod.setSelected(true);
         if (radio_cod.isSelected()) {
             payment = "cod";
-        }else if (radio_online.isSelected()) {
+        } else if (radio_online.isSelected()) {
             payment = "online";
         }
-        if (!adress.equals("")) {
-            
+        if (payment != null && !adress.equals("")) {
+            PromotionDAO daoPromotion = new PromotionDAO();
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            dateBuild = format.format(new Date());
+            buildId = UserDTO.userID + dateBuild;
+            totalBuild = txt_totalFinal.getText();
+            discountID = txt_codePromo.getText();
+            userID = UserDTO.userID;
+            try {
+                if (daoPromotion.checkDiscount(userID, discountID)) {
+                    statusBuild = "Da thanh toan" + daoPromotion.getDiscountPro(discountID).getDesDis();
+                } else {
+                    statusBuild = "Da Thanh Toan";
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            desBuild = txt_inputAddress.getText();
+            BuildDTO dto = new BuildDTO(buildId, dateBuild, totalBuild, payment, statusBuild, desBuild, userID);
+            BuildDAO dao = new BuildDAO();
+            try {
+                if (dao.insertBuild(dto)) {
+                    if (daoPromotion.checkDiscount(userID, discountID)) {
+                        UserHaveDiscountDAO daoDiscount = new UserHaveDiscountDAO();
+                        UserHaveDiscountDTO dtoDiscount = new UserHaveDiscountDTO(discountID, userID);
+                        daoDiscount.deleteDiscountOfTheUser(dtoDiscount);
+                    }
+                    for (BookDTO bookDTO : listBookInCart) {
+                        bookID = bookDTO.getBookId();
+                        quantity = String.valueOf(bookDTO.getQuantityUserBuy());
+                        BookInBuildDTO dtoBookInBuild = new BookInBuildDTO(bookID, buildId, quantity);
+                        BookInBuildDAO daoBookInBuild = new BookInBuildDAO();
+                        BookDAO daoBook = new BookDAO();
+                        daoBookInBuild.insertBookInBuild(dtoBookInBuild);
+                        daoBook.updateQuantityBeforeBuy(bookID, quantity);                      
+                    }
+                    JOptionPane.showMessageDialog(this, "Buy sucessfull !");
+                    JFrameAdress.setVisible(false);
+                    count = 0;
+                    listBookInCart.clear();
+                    txt_BookinCart.setText("0");
+                    firstController();                  
+                } else {
+                    JOptionPane.showMessageDialog(this, "insert Fail !");
+                }
+            } catch (Exception e) {
+                JOptionPane.showConfirmDialog(this, "Buy Faild");
+                JFrameAdress.setVisible(false);
+                e.printStackTrace();
+            }
+
         }
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton15ActionPerformed
@@ -1138,7 +1215,8 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
             txt_total.setText(sumMoneyBeforeDiscount(sumTotalMoney(), dto.getCodeDis()));
         }
     }
-    private void viewTableNotification(List<BookDTO> list) throws Exception{
+
+    private void viewTableNotification(List<BookDTO> list) throws Exception {
         tableModelNotification.setRowCount(0);
         for (BookDTO bookDTO : list) {
             tableModelNotification.addRow(bookDTO.toVectorNotification());
@@ -1223,6 +1301,7 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
     private javax.swing.JFrame JFrameAdress;
     private javax.swing.JFrame JFrameCart;
     private javax.swing.JFrame JFrameDetailBook;
+    private javax.swing.JFrame JFrameHistory;
     private javax.swing.JFrame JFrameNotification;
     private javax.swing.JFrame JFrameUpdateAmount;
     private javax.swing.JButton btn_remove;
@@ -1235,6 +1314,7 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton15;
+    private javax.swing.JButton jButton16;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;

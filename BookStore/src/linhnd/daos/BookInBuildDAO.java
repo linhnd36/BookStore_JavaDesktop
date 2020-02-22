@@ -10,18 +10,18 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import linhnd.conns.Myconnection;
-import linhnd.dtos.BuildDTO;
+import linhnd.dtos.BookInBuildDTO;
 
 /**
  *
  * @author Duc Linh
  */
-public class BuildDAO implements Serializable{
+public class BookInBuildDAO implements Serializable{
     Connection conn = null;
     PreparedStatement preStm = null;
     ResultSet rs = null;
 
-    public BuildDAO() {
+    public BookInBuildDAO() {
     }
     
     private void closeConnection() throws Exception {
@@ -36,27 +36,19 @@ public class BuildDAO implements Serializable{
         }
     }
 
-    public boolean insertBuild(BuildDTO dto) throws Exception {
+    public boolean insertBookInBuild(BookInBuildDTO dto) throws Exception {
         boolean check = false;
         try {
-            String sql = "INSERT dbo.Builds\n"
-                    + "VALUES  ( ? , \n"
-                    + "          ? , \n"
-                    + "          ? , \n"
-                    + "          ? , \n"
-                    + "          ? ,\n"
-                    + "          ? , \n"
-                    + "          ? \n"
-                    + "        )";
+            String sql = "INSERT dbo.BookinBuild\n"
+                    + "VALUES  ( ?, \n"
+                    + "          ?, \n"
+                    + "          ?  \n"
+                    + "          )";
             conn = Myconnection.getMyConnection();
-            preStm =  conn.prepareStatement(sql);
-            preStm.setString(1, dto.getBuildId());
-            preStm.setString(2, dto.getDateBuild());
-            preStm.setString(3, dto.getTotalBuild());
-            preStm.setString(4, dto.getPayment());
-            preStm.setString(5, dto.getStatusBuild());
-            preStm.setString(6, dto.getDesBuild());
-            preStm.setString(7, dto.getUserD());
+            preStm = conn.prepareStatement(sql);
+            preStm.setString(1, dto.getBookID() );
+            preStm.setString(2, dto.getBuildID());
+            preStm.setString(3, dto.getQuantity());
             check = preStm.executeUpdate() > 0;
         } finally {
             closeConnection();

@@ -135,4 +135,40 @@ public class BookDAO implements Serializable {
         }
         return dto;
     }
+
+    public boolean updateQuantityBeforeBuy(String bookID, String quantityInBuid) throws Exception {
+        boolean check = false;
+        try {
+            int quantityInData = getQuantityInData(bookID);
+            String quantityNew = String.valueOf(quantityInData - Integer.parseInt(quantityInBuid));
+            if ( quantityInData >= 0) {
+                String sql = "UPDATE dbo.Books SET quantityBook = ? WHERE bookID = ?";
+                conn = Myconnection.getMyConnection();
+                preStm = conn.prepareStatement(sql);
+                preStm.setString(1, quantityNew);
+                preStm.setString(2, bookID);
+                check = preStm.executeUpdate() > 0;
+            }
+        } finally {
+            closeConnection();
+        }
+        return check;
+    }
+
+    public int getQuantityInData(String bookId) throws Exception {
+        int quantityInData = -1;
+        try {
+            String sql = "SELECT quantityBook FROM dbo.Books WHERE bookID = ?";
+            conn = Myconnection.getMyConnection();
+            preStm = conn.prepareStatement(sql);
+            preStm.setString(1, bookId);
+            rs = preStm.executeQuery();
+            if (rs.next()) {
+                quantityInData = Integer.parseInt(rs.getString("quantityBook"));
+            }
+        } finally {
+            closeConnection();
+        }
+        return quantityInData;
+    }
 }
