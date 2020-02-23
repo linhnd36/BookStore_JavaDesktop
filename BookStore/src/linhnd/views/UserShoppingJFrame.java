@@ -37,6 +37,7 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
     DefaultTableModel tableModelBook = null;
     DefaultTableModel tableModekCart = null;
     DefaultTableModel tableModelNotification = null;
+    DefaultTableModel tableModelHistoty = null;
     ArrayList<BookDTO> listBookInCart = new ArrayList<>();
 
     /**
@@ -48,6 +49,7 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
         tableModelBook = (DefaultTableModel) tableViewBook.getModel();
         tableModekCart = (DefaultTableModel) tableViewCart.getModel();
         tableModelNotification = (DefaultTableModel) tableViewNotification.getModel();
+        tableModelHistoty = (DefaultTableModel) tableViewHistory.getModel();
         txt_UserID.setText(UserDTO.userID);
         firstController();
     }
@@ -129,6 +131,19 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
         tableViewNotification = new javax.swing.JTable();
         jLabel23 = new javax.swing.JLabel();
         JFrameHistory = new javax.swing.JFrame();
+        jLabel26 = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        tableViewHistory = new javax.swing.JTable();
+        txt_searchInHistory = new javax.swing.JTextField();
+        jButton17 = new javax.swing.JButton();
+        jLabel27 = new javax.swing.JLabel();
+        jButton18 = new javax.swing.JButton();
+        txt_date1 = new javax.swing.JTextField();
+        jLabel28 = new javax.swing.JLabel();
+        txt_date2 = new javax.swing.JTextField();
+        jLabel29 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        jLabel31 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
@@ -700,15 +715,122 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
+        jLabel26.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel26.setForeground(new java.awt.Color(255, 51, 51));
+        jLabel26.setText("Lịch Sử :");
+
+        tableViewHistory.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "NameBook", "Date"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane6.setViewportView(tableViewHistory);
+
+        jButton17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/linhnd/icons/icons8_search_30px.png"))); // NOI18N
+        jButton17.setText("Search");
+        jButton17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton17ActionPerformed(evt);
+            }
+        });
+
+        jLabel27.setText("Search by Name :");
+
+        jButton18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/linhnd/icons/icons8_refresh_30px.png"))); // NOI18N
+        jButton18.setText("Frefresh");
+        jButton18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton18ActionPerformed(evt);
+            }
+        });
+
+        jLabel28.setText("Search by Date :");
+
+        jLabel29.setText("Between :");
+
+        jLabel30.setText("to");
+
+        jLabel31.setText("(yyyy-MM-dd)");
+
         javax.swing.GroupLayout JFrameHistoryLayout = new javax.swing.GroupLayout(JFrameHistory.getContentPane());
         JFrameHistory.getContentPane().setLayout(JFrameHistoryLayout);
         JFrameHistoryLayout.setHorizontalGroup(
             JFrameHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JFrameHistoryLayout.createSequentialGroup()
+                .addGroup(JFrameHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(JFrameHistoryLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, JFrameHistoryLayout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addComponent(jLabel26)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, JFrameHistoryLayout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addGroup(JFrameHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(JFrameHistoryLayout.createSequentialGroup()
+                                .addComponent(jLabel28)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(JFrameHistoryLayout.createSequentialGroup()
+                                .addGroup(JFrameHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(JFrameHistoryLayout.createSequentialGroup()
+                                        .addComponent(jLabel27)
+                                        .addGap(30, 30, 30))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JFrameHistoryLayout.createSequentialGroup()
+                                        .addComponent(jLabel29)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                                .addGroup(JFrameHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(JFrameHistoryLayout.createSequentialGroup()
+                                        .addComponent(txt_date1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txt_date2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel31)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(JFrameHistoryLayout.createSequentialGroup()
+                                        .addComponent(txt_searchInHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jButton17, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jButton18, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                .addGap(37, 37, 37))
         );
         JFrameHistoryLayout.setVerticalGroup(
             JFrameHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(JFrameHistoryLayout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addComponent(jLabel26)
+                .addGap(33, 33, 33)
+                .addGroup(JFrameHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_searchInHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton17)
+                    .addComponent(jLabel27)
+                    .addComponent(jButton18, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel28)
+                .addGap(10, 10, 10)
+                .addGroup(JFrameHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_date1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_date2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel29)
+                    .addComponent(jLabel30)
+                    .addComponent(jLabel31))
+                .addGap(42, 42, 42)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(69, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -794,6 +916,11 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
 
         jButton16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/linhnd/icons/icons8_activity_history_20px.png"))); // NOI18N
         jButton16.setText("History");
+        jButton16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton16ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1141,7 +1268,7 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
         }
         if (payment != null && !adress.equals("")) {
             PromotionDAO daoPromotion = new PromotionDAO();
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyy HH:mm:ss");
             dateBuild = format.format(new Date());
             buildId = UserDTO.userID + dateBuild;
             totalBuild = txt_totalFinal.getText();
@@ -1193,10 +1320,70 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
         }
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton15ActionPerformed
+
+    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
+        try {
+            BookDAO dao = new BookDAO();
+            List<BookDTO> listHistoty = dao.getHistory(UserDTO.userID);
+            viewTableHistory(listHistoty);
+            JFrameHistory.setSize(700, 600);
+        JFrameHistory.setVisible(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton16ActionPerformed
+
+    private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
+        String searchText = txt_searchInHistory.getText();
+        String date1 = txt_date1.getText();
+        String date2 = txt_date2.getText();
+        if (!searchText.equals("")) {
+            try {
+                BookDAO dao = new BookDAO();
+                List<BookDTO> bookDto = dao.getHistoryByName(UserDTO.userID, searchText);
+                viewTableHistory(bookDto);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            if (!date1.equals("") && !date2.equals("")) {
+                try {
+                    BookDAO dao = new BookDAO();
+                    List<BookDTO> bookDto = dao.getHistoryByDate(UserDTO.userID, date1, date2);
+                    viewTableHistory(bookDto);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton17ActionPerformed
+
+    private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
+        try {
+            BookDAO dao = new BookDAO();
+            List<BookDTO> dto = dao.getHistory(UserDTO.userID);
+            viewTableHistory(dto);
+            txt_searchInHistory.setText("");
+            txt_date1.setText("");
+            txt_date2.setText("");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton18ActionPerformed
     private void viewTableBook(List<BookDTO> list) throws Exception {
         tableModelBook.setRowCount(0);
         for (BookDTO bookDTO : list) {
             tableModelBook.addRow(bookDTO.toVectorBookView());
+        }
+    }
+    private void viewTableHistory(List<BookDTO> list) throws Exception{
+        tableModelHistoty.setRowCount(0);
+        for (BookDTO bookDTO : list) {
+            tableModelHistoty.addRow(bookDTO.toVectorHistory());
         }
     }
 
@@ -1315,6 +1502,8 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton16;
+    private javax.swing.JButton jButton17;
+    private javax.swing.JButton jButton18;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -1341,7 +1530,13 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1353,10 +1548,12 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JRadioButton radio_cod;
     private javax.swing.JRadioButton radio_online;
     private javax.swing.JTable tableViewBook;
     private javax.swing.JTable tableViewCart;
+    private javax.swing.JTable tableViewHistory;
     private javax.swing.JTable tableViewNotification;
     private javax.swing.JLabel txt_BookinCart;
     private javax.swing.JLabel txt_IdBookInUpdate;
@@ -1366,6 +1563,8 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel txt_UserID;
     private javax.swing.JLabel txt_author;
     private javax.swing.JTextField txt_codePromo;
+    private javax.swing.JTextField txt_date1;
+    private javax.swing.JTextField txt_date2;
     private javax.swing.JLabel txt_desDiscount;
     private javax.swing.JTextArea txt_descriptionBook;
     private javax.swing.JLabel txt_discount;
@@ -1375,6 +1574,7 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel txt_nameBookUpdate;
     private javax.swing.JLabel txt_outputUserID;
     private javax.swing.JLabel txt_quantity;
+    private javax.swing.JTextField txt_searchInHistory;
     private javax.swing.JLabel txt_titleBook;
     private javax.swing.JLabel txt_total;
     private javax.swing.JLabel txt_totalFinal;

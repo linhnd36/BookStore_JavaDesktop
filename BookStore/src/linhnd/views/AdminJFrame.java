@@ -5,17 +5,25 @@
  */
 package linhnd.views;
 
+import java.awt.event.KeyEvent;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import linhnd.daos.BookDAO;
+import linhnd.dtos.BookDTO;
+
 /**
  *
  * @author Duc Linh
  */
 public class AdminJFrame extends javax.swing.JFrame {
-
+    DefaultTableModel tableModelBook = null;
     /**
      * Creates new form AdminJFrame
      */
     public AdminJFrame() {
         initComponents();
+        tableModelBook = (DefaultTableModel) tableViewBook.getModel();
+        firstController();
     }
 
     /**
@@ -27,21 +35,170 @@ public class AdminJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        txt_UserID = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableViewBook = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
+        txt_Search = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setText("Admin ");
+
+        txt_UserID.setText("jLabel2");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 51, 51));
+        jLabel2.setText("BOOK STORE");
+
+        tableViewBook.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "BookID", "Title", "ImagerName", "Description", "Price", "Author", "Category", "QuantityBook"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tableViewBook.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableViewBookMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tableViewBook);
+
+        jLabel3.setText("Input name's book :");
+
+        txt_Search.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_SearchKeyPressed(evt);
+            }
+        });
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/linhnd/icons/icons8_search_30px.png"))); // NOI18N
+        jButton2.setText("SEARCH");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/linhnd/icons/icons8_refresh_30px.png"))); // NOI18N
+        jButton3.setText("REFRESH");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txt_UserID)
+                .addGap(81, 81, 81))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 877, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txt_Search, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(52, 52, 52)
+                        .addComponent(jButton2)
+                        .addGap(39, 39, 39)
+                        .addComponent(jButton3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(jLabel2)))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(jLabel2)
+                .addGap(1, 1, 1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txt_UserID))
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(txt_Search, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton3))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(163, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tableViewBookMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableViewBookMouseClicked
+//         String imagerUrl = null;
+//        int row = tableViewBook.getSelectedRow();
+//        String bookId = (String) tableModelBook.getValueAt(row, 0);
+//        if (row >= 0) {
+//            txt_descriptionBook.disable();
+//            JFrameDetailBook.setSize(720, 550);
+//            JFrameDetailBook.setVisible(true);
+//            try {
+//                BookDAO dao = new BookDAO();
+//                BookDTO dto = dao.getDetailOneBook(bookId);
+//                txt_titleBook.setText(dto.getTitleBook());
+//                txt_author.setText(dto.getAuthor());
+//                txt_descriptionBook.setText(dto.getDesBook());
+//                txt_Price.setText(dto.getPrice());
+//                txt_idBookInCart.setText(bookId);
+//                imagerUrl = "/imager/" + dto.getImagerName();
+//                try {
+//                    imagerBook.setIcon(new javax.swing.ImageIcon(getClass().getResource(imagerUrl)));
+//                } catch (Exception e) {
+//                    imagerBook.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imager/1.jpg")));
+//                }
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tableViewBookMouseClicked
+
+    private void txt_SearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_SearchKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            searchByUser();
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_SearchKeyPressed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        searchByUser();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        firstController();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -77,7 +234,43 @@ public class AdminJFrame extends javax.swing.JFrame {
             }
         });
     }
+    private void firstController() {
+        try {
+            BookDAO dao = new BookDAO();
+            List<BookDTO> list = dao.getAllBookByAdmin();
+            viewTableBook(list);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    private void searchByUser() {
+        String textSearch = txt_Search.getText();
+        if (!textSearch.equals("")) {
+            try {
+                BookDAO dao = new BookDAO();
+                List<BookDTO> list = dao.searchBookByUser(textSearch);
+                viewTableBook(list);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    private void viewTableBook(List<BookDTO> list) throws Exception {
+        tableModelBook.setRowCount(0);
+        for (BookDTO bookDTO : list) {
+            tableModelBook.addRow(bookDTO.toVectorAdmin());
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tableViewBook;
+    private javax.swing.JTextField txt_Search;
+    private javax.swing.JLabel txt_UserID;
     // End of variables declaration//GEN-END:variables
 }

@@ -100,5 +100,9 @@ VALUES  ( '', -- bookID - varchar(30)
 
 UPDATE dbo.Books SET quantityBook = ? WHERE bookID = ?;
 SELECT quantityBook FROM dbo.Books WHERE bookID = ?;
-DELETE dbo.UserHaveDiscount WHERE userID = ? AND discountID = ?
+DELETE dbo.UserHaveDiscount WHERE userID = ? AND discountID = ?;
+SELECT titleBook,dateBuild FROM dbo.Builds,dbo.BookinBuild,dbo.Books WHERE dbo.Builds.buildID = dbo.BookinBuild.buildID AND dbo.BookinBuild.bookID = dbo.Books.bookID AND userID = ? AND titleBook LIKE ;
 
+
+SELECT dbo.Builds.buildID FROM dbo.Builds WHERE dateBuild BETWEEN '2020-02-21' AND '2020-02-24';
+SELECT bookID,titleBook,imagerName,descriptionBook,price,author,category,quantityBook FROM dbo.Books WHERE statusBook = 'ready'
