@@ -17,12 +17,12 @@ import javax.swing.table.DefaultTableModel;
 import linhnd.daos.BookDAO;
 import linhnd.daos.BookInBuildDAO;
 import linhnd.daos.BuildDAO;
-import linhnd.daos.PromotionDAO;
+import linhnd.daos.DiscountDAO;
 import linhnd.daos.UserHaveDiscountDAO;
 import linhnd.dtos.BookDTO;
 import linhnd.dtos.BookInBuildDTO;
 import linhnd.dtos.BuildDTO;
-import linhnd.dtos.PromotionDTO;
+import linhnd.dtos.DiscountDTO;
 import linhnd.dtos.UserDTO;
 import linhnd.dtos.UserHaveDiscountDTO;
 
@@ -1187,8 +1187,8 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
         String codePromo = txt_codePromo.getText();
         String userId = txt_userIDCart.getText();
-        PromotionDAO dao = new PromotionDAO();
-        PromotionDTO dto;
+        DiscountDAO dao = new DiscountDAO();
+        DiscountDTO dto;
         try {
             if (!codePromo.equals("")) {
                 if (dao.checkDiscount(userId, codePromo)) {
@@ -1267,7 +1267,7 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
             payment = "online";
         }
         if (payment != null && !adress.equals("")) {
-            PromotionDAO daoPromotion = new PromotionDAO();
+            DiscountDAO daoPromotion = new DiscountDAO();
             SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyy HH:mm:ss");
             dateBuild = format.format(new Date());
             buildId = UserDTO.userID + dateBuild;
@@ -1397,8 +1397,8 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
         if (codeDis.equals("")) {
             txt_total.setText(sumMoneyBeforeDiscount(sumTotalMoney(), "0"));
         } else {
-            PromotionDAO dao = new PromotionDAO();
-            PromotionDTO dto = dao.getDiscountPro(codeDis);
+            DiscountDAO dao = new DiscountDAO();
+            DiscountDTO dto = dao.getDiscountPro(codeDis);
             txt_total.setText(sumMoneyBeforeDiscount(sumTotalMoney(), dto.getCodeDis()));
         }
     }

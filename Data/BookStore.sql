@@ -105,4 +105,41 @@ SELECT titleBook,dateBuild FROM dbo.Builds,dbo.BookinBuild,dbo.Books WHERE dbo.B
 
 
 SELECT dbo.Builds.buildID FROM dbo.Builds WHERE dateBuild BETWEEN '2020-02-21' AND '2020-02-24';
-SELECT bookID,titleBook,imagerName,descriptionBook,price,author,category,quantityBook FROM dbo.Books WHERE statusBook = 'ready'
+SELECT bookID,titleBook,imagerName,descriptionBook,price,author,category,quantityBook FROM dbo.Books WHERE statusBook = 'ready';
+UPDATE dbo.Books SET titleBook = ? ,author = ? ,descriptionBook = ? ,imagerName = ? ,price = ? ,quantityBook = ? ,category = ? WHERE bookID = ?;
+UPDATE dbo.Books SET statusBook = 'noActive' WHERE bookID = ?;
+INSERT dbo.Books
+        ( bookID ,
+          titleBook ,
+          author ,
+          descriptionBook ,
+          imagerName ,
+          price ,
+          quantityBook ,
+          category ,
+          statusBook ,
+          dateCreate
+        )
+VALUES  ( '' , -- bookID - varchar(30)
+          N'' , -- titleBook - nvarchar(30)
+          N'' , -- author - nvarchar(30)
+          N'' , -- descriptionBook - nvarchar(50)
+          '' , -- imagerName - varchar(30)
+          '' , -- price - varchar(30)
+          0 , -- quantityBook - int
+          '' , -- category - varchar(30)
+          '' , -- statusBook - varchar(10)
+          ''  -- dateCreate - varchar(30)
+        );
+		INSERT dbo.Discount
+		        ( discountID ,
+		          descriptionDiscount ,
+		          codeDiscount ,
+		          DateDiscount
+		        )
+		VALUES  ( '' , -- discountID - varchar(20)
+		          N'' , -- descriptionDiscount - nvarchar(50)
+		          '' , -- codeDiscount - varchar(20)
+		          N''  -- DateDiscount - nchar(20)
+		        )
+	

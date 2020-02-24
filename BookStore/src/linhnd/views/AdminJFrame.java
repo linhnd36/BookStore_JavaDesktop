@@ -6,10 +6,16 @@
 package linhnd.views;
 
 import java.awt.event.KeyEvent;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import linhnd.daos.BookDAO;
 import linhnd.dtos.BookDTO;
+import linhnd.dtos.UserDTO;
 
 /**
  *
@@ -23,6 +29,7 @@ public class AdminJFrame extends javax.swing.JFrame {
     public AdminJFrame() {
         initComponents();
         tableModelBook = (DefaultTableModel) tableViewBook.getModel();
+        txt_UserID.setText(UserDTO.userID);
         firstController();
     }
 
@@ -35,6 +42,29 @@ public class AdminJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        JFrameDetailBook = new javax.swing.JFrame();
+        imagerBook = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txt_descriptionBook = new javax.swing.JTextArea();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        txt_Price = new javax.swing.JTextField();
+        txt_quantity = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        txt_imagerName = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        txt_category = new javax.swing.JTextField();
+        btn_update = new javax.swing.JButton();
+        txt_author = new javax.swing.JTextField();
+        txt_titleBook = new javax.swing.JTextField();
+        btn_delete = new javax.swing.JButton();
+        txt_idBook = new javax.swing.JTextField();
+        btn_create = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         txt_UserID = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -44,6 +74,164 @@ public class AdminJFrame extends javax.swing.JFrame {
         txt_Search = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+
+        imagerBook.setBackground(new java.awt.Color(0, 0, 0));
+        imagerBook.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imager/1.jpg"))); // NOI18N
+
+        jLabel4.setText("Name:");
+
+        jLabel5.setText("Author :");
+
+        jLabel6.setText("Description Book :");
+
+        txt_descriptionBook.setColumns(20);
+        txt_descriptionBook.setRows(5);
+        jScrollPane2.setViewportView(txt_descriptionBook);
+
+        jLabel7.setText("Price :");
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 51, 0));
+        jLabel8.setText("BOOK DETAIL");
+
+        jLabel9.setText("Quantity :");
+
+        jLabel15.setText("BookID :");
+
+        jLabel10.setText("Imager Name :");
+
+        jLabel11.setText("Category :");
+
+        btn_update.setIcon(new javax.swing.ImageIcon(getClass().getResource("/linhnd/icons/icons8_update_20px.png"))); // NOI18N
+        btn_update.setText("UPDATE");
+        btn_update.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_updateActionPerformed(evt);
+            }
+        });
+
+        btn_delete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/linhnd/icons/icons8_delete_20px.png"))); // NOI18N
+        btn_delete.setText("DELETE");
+        btn_delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_deleteActionPerformed(evt);
+            }
+        });
+
+        btn_create.setIcon(new javax.swing.ImageIcon(getClass().getResource("/linhnd/icons/icons8_create_30px.png"))); // NOI18N
+        btn_create.setText("CREATE");
+        btn_create.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_createActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout JFrameDetailBookLayout = new javax.swing.GroupLayout(JFrameDetailBook.getContentPane());
+        JFrameDetailBook.getContentPane().setLayout(JFrameDetailBookLayout);
+        JFrameDetailBookLayout.setHorizontalGroup(
+            JFrameDetailBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JFrameDetailBookLayout.createSequentialGroup()
+                .addGroup(JFrameDetailBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(JFrameDetailBookLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(imagerBook, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(JFrameDetailBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(JFrameDetailBookLayout.createSequentialGroup()
+                                .addGap(29, 29, 29)
+                                .addGroup(JFrameDetailBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(JFrameDetailBookLayout.createSequentialGroup()
+                                        .addGroup(JFrameDetailBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel4)
+                                            .addComponent(jLabel6)
+                                            .addComponent(jLabel15)
+                                            .addGroup(JFrameDetailBookLayout.createSequentialGroup()
+                                                .addGroup(JFrameDetailBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addComponent(jLabel9)
+                                                    .addComponent(jLabel7)
+                                                    .addComponent(jLabel10)
+                                                    .addComponent(jLabel11))
+                                                .addGap(19, 19, 19))
+                                            .addGroup(JFrameDetailBookLayout.createSequentialGroup()
+                                                .addComponent(jLabel5)
+                                                .addGap(10, 10, 10)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(JFrameDetailBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txt_Price, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txt_quantity, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txt_imagerName, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(JFrameDetailBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addComponent(txt_titleBook, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
+                                                .addComponent(txt_author, javax.swing.GroupLayout.Alignment.LEADING))
+                                            .addComponent(txt_category, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txt_idBook, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(JFrameDetailBookLayout.createSequentialGroup()
+                                        .addComponent(btn_update, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btn_delete, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(JFrameDetailBookLayout.createSequentialGroup()
+                                .addGap(127, 127, 127)
+                                .addComponent(btn_create, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(JFrameDetailBookLayout.createSequentialGroup()
+                        .addGap(287, 287, 287)
+                        .addComponent(jLabel8)))
+                .addContainerGap(38, Short.MAX_VALUE))
+        );
+        JFrameDetailBookLayout.setVerticalGroup(
+            JFrameDetailBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JFrameDetailBookLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jLabel8)
+                .addGap(18, 18, 18)
+                .addGroup(JFrameDetailBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_idBook, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15))
+                .addGap(3, 3, 3)
+                .addGroup(JFrameDetailBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(JFrameDetailBookLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(JFrameDetailBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(txt_titleBook, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
+                        .addGap(16, 16, 16)
+                        .addGroup(JFrameDetailBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txt_author, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                            .addComponent(jLabel5))
+                        .addGap(18, 18, 18)
+                        .addGroup(JFrameDetailBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(23, 23, 23)
+                        .addGroup(JFrameDetailBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(txt_Price, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(17, 17, 17)
+                        .addGroup(JFrameDetailBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txt_quantity, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9))
+                        .addGap(18, 18, 18)
+                        .addGroup(JFrameDetailBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel10)
+                            .addComponent(txt_imagerName, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(JFrameDetailBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel11)
+                            .addComponent(txt_category, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(12, 12, 12)
+                        .addGroup(JFrameDetailBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btn_update, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_delete, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn_create, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(40, Short.MAX_VALUE))
+                    .addGroup(JFrameDetailBookLayout.createSequentialGroup()
+                        .addComponent(imagerBook, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGap(54, 54, 54))))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -102,6 +290,33 @@ public class AdminJFrame extends javax.swing.JFrame {
             }
         });
 
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/linhnd/icons/icons8_create_30px.png"))); // NOI18N
+        jButton5.setText("CREATE BOOK");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/linhnd/icons/icons8_logout_rounded_left_20px.png"))); // NOI18N
+        jButton1.setText("LOGOUT");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/linhnd/icons/icons8_discount_30px.png"))); // NOI18N
+        jButton4.setText("VIEW DISCOUNT");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/linhnd/icons/icons8_trash_30px.png"))); // NOI18N
+        jButton6.setText("  TRASH");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -115,9 +330,6 @@ public class AdminJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 877, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -128,7 +340,19 @@ public class AdminJFrame extends javax.swing.JFrame {
                         .addComponent(jButton3))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(27, 27, 27)
-                        .addComponent(jLabel2)))
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(67, 67, 67)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(54, 54, 54)
+                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 877, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -148,38 +372,51 @@ public class AdminJFrame extends javax.swing.JFrame {
                     .addComponent(jButton3))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(163, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton5)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void tableViewBookMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableViewBookMouseClicked
-//         String imagerUrl = null;
-//        int row = tableViewBook.getSelectedRow();
-//        String bookId = (String) tableModelBook.getValueAt(row, 0);
-//        if (row >= 0) {
-//            txt_descriptionBook.disable();
-//            JFrameDetailBook.setSize(720, 550);
-//            JFrameDetailBook.setVisible(true);
-//            try {
-//                BookDAO dao = new BookDAO();
-//                BookDTO dto = dao.getDetailOneBook(bookId);
-//                txt_titleBook.setText(dto.getTitleBook());
-//                txt_author.setText(dto.getAuthor());
-//                txt_descriptionBook.setText(dto.getDesBook());
-//                txt_Price.setText(dto.getPrice());
-//                txt_idBookInCart.setText(bookId);
-//                imagerUrl = "/imager/" + dto.getImagerName();
-//                try {
-//                    imagerBook.setIcon(new javax.swing.ImageIcon(getClass().getResource(imagerUrl)));
-//                } catch (Exception e) {
-//                    imagerBook.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imager/1.jpg")));
-//                }
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
+         String imagerUrl = null;
+         txt_idBook.disable();
+        int row = tableViewBook.getSelectedRow();
+        String bookId = (String) tableModelBook.getValueAt(row, 0);
+        if (row >= 0) {
+            JFrameDetailBook.setSize(820, 650);
+            JFrameDetailBook.setVisible(true);
+            btn_create.setVisible(false);
+            btn_update.setVisible(true);
+            btn_delete.setVisible(true);
+            try {
+                BookDAO dao = new BookDAO();
+                BookDTO dto = dao.getDetailOneBookByAdmin(bookId);
+                txt_titleBook.setText(dto.getTitleBook());
+                txt_author.setText(dto.getAuthor());
+                txt_descriptionBook.setText(dto.getDesBook());
+                txt_Price.setText(dto.getPrice());
+                txt_idBook.setText(bookId);
+                txt_imagerName.setText(dto.getImagerName());
+                txt_category.setText(dto.getCategory());
+                txt_quantity.setText(dto.getQuantityBook());
+                imagerUrl = "/imager/" + dto.getImagerName();
+                try {
+                    imagerBook.setIcon(new javax.swing.ImageIcon(getClass().getResource(imagerUrl)));
+                } catch (Exception e) {
+                    imagerBook.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imager/1.jpg")));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         // TODO add your handling code here:
     }//GEN-LAST:event_tableViewBookMouseClicked
 
@@ -199,6 +436,102 @@ public class AdminJFrame extends javax.swing.JFrame {
         firstController();
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void btn_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_updateActionPerformed
+        String titleBook = txt_titleBook.getText();
+        String author = txt_author.getText();
+        String desBook = txt_descriptionBook.getText();
+        String price = txt_Price.getText();
+        String quantity = txt_quantity.getText();
+        String imagerName = txt_imagerName.getText();
+        String category = txt_category.getText();
+        if (!titleBook.equals("") && !author.equals("") && !desBook.equals("") && !price.equals("") && !quantity.equals("") && !imagerName.equals("") && !category.equals("")) {
+            BookDTO dto = new BookDTO(txt_idBook.getText(), titleBook, author, desBook, imagerName, price, category, quantity);
+            BookDAO dao = new BookDAO();
+            try {
+                if (dao.updateBook(dto)) {
+                    JOptionPane.showMessageDialog(this, "Update sucessfull !");
+                    JFrameDetailBook.setVisible(false);
+                    firstController();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_updateActionPerformed
+
+    private void btn_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deleteActionPerformed
+        String bookId = txt_idBook.getText();
+        try {
+            BookDAO dao = new BookDAO();
+            int confirm = JOptionPane.showConfirmDialog(this, "Do you want delete book : "+bookId);
+            if (confirm == JOptionPane.YES_OPTION) {
+                if (dao.updateStatusBook(bookId)) {
+                    JOptionPane.showMessageDialog(this, "Delete sucessfull !");
+                    JFrameDetailBook.setVisible(false);
+                    firstController();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Delete fail");
+                }
+            }
+        } catch (Exception e) {
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_deleteActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        clearFrom();
+        JFrameDetailBook.setSize(820, 650);
+        JFrameDetailBook.setVisible(true);
+        btn_update.setVisible(false);
+        btn_delete.setVisible(false);
+        btn_create.setVisible(true);
+        txt_idBook.setEnabled(true);
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void btn_createActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_createActionPerformed
+        SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyy HH:mm:ss");
+        String dateCreate = format.format(new Date());
+        String idBook = txt_idBook.getText();
+        String titleBook = txt_titleBook.getText();
+        String author = txt_author.getText();
+        String desBook = txt_descriptionBook.getText();
+        String price = txt_Price.getText();
+        String quantity = txt_quantity.getText();
+        String imagerName = txt_imagerName.getText();
+        String category = txt_category.getText();
+        BookDAO dao = new BookDAO();
+        if (!idBook.equals("") && !titleBook.equals("") && !author.equals("") && !desBook.equals("") && !price.equals("") && !quantity.equals("") && !imagerName.equals("") && !category.equals("")) {
+            try {
+                if (dao.checkBookId(idBook)) {
+                    BookDTO dto = new BookDTO(idBook, titleBook, author, desBook, imagerName, price, quantity, category, dateCreate, quantity);
+                    if (dao.insertNewBook(dto)) {
+                        JOptionPane.showMessageDialog(this, "Tạo mới sách thành công");
+                        JFrameDetailBook.setVisible(false);
+                        firstController();
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "BookID đã tồn tại !");
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_createActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        WelcomeJFrame we = new WelcomeJFrame();
+        we.setVisible(true);
+        this.dispose();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -261,16 +594,54 @@ public class AdminJFrame extends javax.swing.JFrame {
             tableModelBook.addRow(bookDTO.toVectorAdmin());
         }
     }
+    private void clearFrom(){
+        txt_idBook.setText("");
+        txt_titleBook.setText("");
+        txt_author.setText("");
+        txt_descriptionBook.setText("");
+        txt_Price.setText("");
+        txt_quantity.setText("");
+        txt_imagerName.setText("");
+        txt_category.setText("");
+        imagerBook.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imager/1.jpg")));
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JFrame JFrameDetailBook;
+    private javax.swing.JButton btn_create;
+    private javax.swing.JButton btn_delete;
+    private javax.swing.JButton btn_update;
+    private javax.swing.JLabel imagerBook;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tableViewBook;
+    private javax.swing.JTextField txt_Price;
     private javax.swing.JTextField txt_Search;
     private javax.swing.JLabel txt_UserID;
+    private javax.swing.JTextField txt_author;
+    private javax.swing.JTextField txt_category;
+    private javax.swing.JTextArea txt_descriptionBook;
+    private javax.swing.JTextField txt_idBook;
+    private javax.swing.JTextField txt_imagerName;
+    private javax.swing.JTextField txt_quantity;
+    private javax.swing.JTextField txt_titleBook;
     // End of variables declaration//GEN-END:variables
 }

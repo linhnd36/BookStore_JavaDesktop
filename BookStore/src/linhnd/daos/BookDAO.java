@@ -270,4 +270,101 @@ public class BookDAO implements Serializable {
         }
         return result;
     }
+    public boolean updateBook(BookDTO dto) throws Exception{
+        boolean check = false;
+        try {
+            String sql = "UPDATE dbo.Books SET titleBook = ? ,author = ? ,descriptionBook = ? ,imagerName = ? ,price = ? ,quantityBook = ? ,category = ? WHERE bookID = ? ";
+            conn = Myconnection.getMyConnection();
+            preStm = conn.prepareStatement(sql);
+            preStm.setString(1, dto.getTitleBook());
+            preStm.setString(2, dto.getAuthor());
+            preStm.setString(3, dto.getDesBook());
+            preStm.setString(4, dto.getImagerName());
+            preStm.setString(5, dto.getPrice());
+            preStm.setString(6, dto.getQuantityBook());
+            preStm.setString(7, dto.getCategory());
+            preStm.setString(8, dto.getBookId());
+            check = preStm.executeUpdate() > 0;
+        }finally{
+            closeConnection();
+        }
+        return check;
+    }
+    public BookDTO getDetailOneBookByAdmin(String bookID) throws Exception{
+        String titleBook,author,descriptionBook,price,imagerName,quantityBook,category;
+        BookDTO dto = null;
+        try {
+            String sql = "SELECT titleBook,author,descriptionBook,price,imagerName,category,quantityBook FROM dbo.Books WHERE bookID = ?";
+            conn = Myconnection.getMyConnection();
+            preStm = conn.prepareStatement(sql);
+            preStm.setString(1, bookID);
+            rs = preStm.executeQuery();
+            if (rs.next()) {
+                titleBook = rs.getString("titleBook");
+                author = rs.getString("author");
+                descriptionBook = rs.getString("descriptionBook");
+                price = rs.getString("price");
+                imagerName = rs.getString("imagerName");
+                descriptionBook = rs.getString("descriptionBook");
+                quantityBook = rs.getString("quantityBook");
+                category = rs.getString("category");
+                dto = new BookDTO(bookID, titleBook, author, descriptionBook, imagerName, price, category, quantityBook);
+            }
+        }finally{
+            closeConnection();
+        }
+        return dto;
+    }
+    public boolean updateStatusBook(String bookID) throws Exception{
+        boolean check = false;
+        try {
+            String sql = "UPDATE dbo.Books SET statusBook = 'noReady' WHERE bookID = ?";
+            conn = Myconnection.getMyConnection();
+            preStm = conn.prepareStatement(sql);
+            preStm.setString(1, bookID);
+            check = preStm.executeUpdate() > 0;
+        }finally{
+            closeConnection();
+        }
+        return check;
+    }
+    public boolean checkBookId(String bookId )throws Exception{
+        boolean check = true;
+        try {
+            String sql = "SELECT bookID FROM dbo.Books WHERE bookID = ?";
+            conn = Myconnection.getMyConnection();
+            preStm = conn.prepareStatement(sql);
+            preStm.setString(1, bookId);
+            rs = preStm.executeQuery();
+            if (rs.next()) {
+                check = false;
+            }
+ 
+        }finally{
+            closeConnection();
+        }
+        return check;
+    }
+    public boolean insertNewBook(BookDTO dto) throws Exception{
+        boolean check = false;
+        try {
+            String sql = "INSERT dbo.Books VALUES  ( ? ,  ? ,? ,  ? , ? , ? ,  ? ,  ? ,  ? , ?  )";
+            conn = Myconnection.getMyConnection();
+            preStm = conn.prepareStatement(sql);
+            preStm.setString(1, dto.getBookId());
+            preStm.setString(2, dto.getTitleBook());
+            preStm.setString(3, dto.getAuthor());
+            preStm.setString(4, dto.getDesBook());
+            preStm.setString(5, dto.getImagerName());
+            preStm.setString(6, dto.getPrice());
+            preStm.setString(7, dto.getQuantityBook());
+            preStm.setString(8, dto.getCategory());
+            preStm.setString(9, "ready");
+            preStm.setString(10, dto.getDate());
+            check = preStm.executeUpdate() > 0;          
+        }finally{
+            closeConnection();
+        }
+        return check;
+    }
 }

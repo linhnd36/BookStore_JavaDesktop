@@ -11,19 +11,19 @@ import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import linhnd.dtos.PromotionDTO;
+import linhnd.dtos.DiscountDTO;
 import linhnd.conns.Myconnection;
 
 /**
  *
  * @author Duc Linh
  */
-public class PromotionDAO implements Serializable{
+public class DiscountDAO implements Serializable{
     Connection conn = null;
     PreparedStatement preStm = null;
     ResultSet rs = null;
 
-    public PromotionDAO() {
+    public DiscountDAO() {
     }
     
     private void closeConnection() throws Exception{
@@ -38,9 +38,9 @@ public class PromotionDAO implements Serializable{
         }
     }
     
-    public PromotionDTO getDiscountPro(String codePro) throws Exception{
+    public DiscountDTO getDiscountPro(String codePro) throws Exception{
         String desDis,codeDis;
-        PromotionDTO dto = null;
+        DiscountDTO dto = null;
         try {
             String sql = "SELECT descriptionDiscount,codeDiscount FROM dbo.Discount WHERE discountID = ? ";
             conn = Myconnection.getMyConnection();
@@ -50,7 +50,7 @@ public class PromotionDAO implements Serializable{
             if (rs.next()) {
                 desDis = rs.getString("descriptionDiscount");
                 codeDis = rs.getString("codeDiscount");
-                dto = new PromotionDTO(codeDis, desDis);
+                dto = new DiscountDTO(codeDis, desDis);
             }   
         }finally{
             closeConnection();
@@ -69,6 +69,37 @@ public class PromotionDAO implements Serializable{
             if (rs.next()) {
                 check = true;
             }
+        }finally{
+            closeConnection();
+        }
+        return check;
+    }
+    public boolean checkCodeDis(String code) throws Exception{
+        boolean check = true;
+        try {
+            String sql = "SELECT discountID FROM dbo.Discount WHERE discountID = ?";
+            conn = Myconnection.getMyConnection();
+            preStm = conn.prepareStatement(sql);
+            preStm.setString(1, code);
+            rs = preStm.executeQuery();
+            if (rs.next()) {
+                check = false;
+            }
+        }finally{
+            closeConnection();
+        }
+        return check;
+    }
+    public boolean createNewDis(DiscountDTO dto) throws Exception{
+        boolean check = false;
+        try {
+            String sql = "INSERT dbo.Discount VALUES  ( ?,?,?,? )";
+            conn = Myconnection.getMyConnection();
+            preStm = conn.prepareStatement(sql);
+            preStm.setString(1, dto.getDisID());
+            preStm.setString(2, dto.getDesDis());
+            preStm.setString(3, dto.getCodeDis());
+            preStm.setString(4, dto.getDateDis());
         }finally{
             closeConnection();
         }

@@ -11,16 +11,32 @@ import java.io.Serializable;
  *
  * @author Duc Linh
  */
-public class PromotionDTO implements Serializable{
-    private String codeDis, desDis,disID;
+public class DiscountDTO implements Serializable{
+    private String codeDis, desDis,disID,dateDis;
 
-    public PromotionDTO(String codeDis, String desDis, String disID) {
+    public DiscountDTO(String codeDis, String desDis, String disID) {
         this.codeDis = codeDis;
         this.desDis = desDis;
         this.disID = disID;
     }
 
-    public PromotionDTO(String codeDis, String desDis) {
+    public DiscountDTO(String codeDis, String desDis, String disID, String dateDis) {
+        this.codeDis = codeDis;
+        this.desDis = desDis;
+        this.disID = disID;
+        this.dateDis = dateDis;
+    }
+
+    public String getDateDis() {
+        return dateDis;
+    }
+
+    public void setDateDis(String dateDis) {
+        this.dateDis = dateDis;
+    }
+    
+
+    public DiscountDTO(String codeDis, String desDis) {
         this.codeDis = codeDis;
         this.desDis = desDis;
     }
