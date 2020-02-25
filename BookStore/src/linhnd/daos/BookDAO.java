@@ -361,7 +361,52 @@ public class BookDAO implements Serializable {
             preStm.setString(8, dto.getCategory());
             preStm.setString(9, "ready");
             preStm.setString(10, dto.getDate());
-            check = preStm.executeUpdate() > 0;          
+            check = preStm.executeUpdate() > 0;
+        } finally {
+            closeConnection();
+        }
+        return check;
+    }
+
+    public List<BookDTO> getAllInTrashBookByAdmin() throws Exception {
+        List<BookDTO> listBook = null;
+        String bookID, titleBook, author, desBook, price, category, imagerName, quantityBook;
+        BookDTO dto = null;
+        try {
+            String sql = "SELECT bookID,titleBook,imagerName,descriptionBook,price,author,category,quantityBook FROM dbo.Books WHERE statusBook = 'noReady'";
+            conn = Myconnection.getMyConnection();
+            preStm = conn.prepareStatement(sql);
+            rs = preStm.executeQuery();
+            listBook = new ArrayList<>();
+            while (rs.next()) {
+                bookID = rs.getString("bookID");
+                titleBook = rs.getString("titleBook");
+                imagerName = rs.getString("imagerName");
+                desBook = rs.getString("descriptionBook");
+                price = rs.getString("price");
+                author = rs.getString("author");
+                category = rs.getString("category");
+                quantityBook = rs.getString("quantityBook");
+                dto = new BookDTO(bookID, titleBook, author, desBook, imagerName, price, category, quantityBook);
+                listBook.add(dto);
+            }
+        } finally {
+            closeConnection();
+        }
+        return listBook;
+    }
+    
+    public boolean restoreBookInTrash(String bookId) throws Exception{
+        boolean check = false;
+        try {
+            String sql  = "UPDATE dbo.Books SET statusBook = ? WHERE bookID = ?";
+            conn = Myconnection.getMyConnection();
+            preStm = conn.prepareStatement(sql);
+            preStm.setString(1, "ready");
+            preStm.setString(2, bookId);
+            check = preStm.executeUpdate() > 0;
+            System.out.println(check);
+            System.out.println(bookId);
         }finally{
             closeConnection();
         }

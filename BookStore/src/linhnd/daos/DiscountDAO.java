@@ -11,6 +11,8 @@ import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import linhnd.dtos.DiscountDTO;
 import linhnd.conns.Myconnection;
 
@@ -100,11 +102,62 @@ public class DiscountDAO implements Serializable{
             preStm.setString(2, dto.getDesDis());
             preStm.setString(3, dto.getCodeDis());
             preStm.setString(4, dto.getDateDis());
+            check = preStm.executeUpdate() > 0;
         }finally{
             closeConnection();
         }
         return check;
     }
-    
-    
+    public List<DiscountDTO> getAllDiscount() throws Exception{
+        List<DiscountDTO> result = new ArrayList<>();
+        DiscountDTO dto = null;
+        try {
+            String sql = "SELECT discountID,descriptionDiscount,codeDiscount,DateDiscount FROM dbo.Discount ";
+            conn = Myconnection.getMyConnection();
+            preStm = conn.prepareStatement(sql);
+            rs = preStm.executeQuery();
+            while (rs.next()) {                
+                String discountID = rs.getString("discountID");
+                String descriptionDiscount = rs.getString("descriptionDiscount");
+                String codeDiscount = rs.getString("codeDiscount");
+                String DateDiscount = rs.getString("DateDiscount");
+                dto = new DiscountDTO(codeDiscount, descriptionDiscount, discountID, DateDiscount);
+                result.add(dto);
+            }
+        } finally {
+            closeConnection();
+        }
+        return result;
+    }
+
+    public boolean checkDiscountCode(String disCode) throws Exception {
+        boolean check = true;
+        try {
+            String sql = "SELECT discountID FROM dbo.Discount WHERE discountID = ? ";
+            conn = Myconnection.getMyConnection();
+            preStm = conn.prepareStatement(sql);
+            preStm.setString(1, disCode);
+            rs = preStm.executeQuery();
+            if (rs.next()) {
+                check = false;
+            }
+        } finally {
+            closeConnection();
+        }
+        return check;
+    }
+    public boolean deleteDiscount(String disID) throws Exception{
+        boolean check = false;
+        try {
+            String sql = "DELETE dbo.Discount WHERE discountID = ? ";
+            conn = Myconnection.getMyConnection();
+            preStm = conn.prepareStatement(sql);
+            preStm.setString(1, disID);
+            check = preStm.executeUpdate() > 0;
+        } finally {
+            closeConnection();
+        }
+        return  check;
+    }
+
 }

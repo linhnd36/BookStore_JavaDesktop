@@ -7,8 +7,12 @@ package linhnd.views;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import linhnd.daos.DiscountDAO;
+import linhnd.daos.UserDAO;
+import linhnd.daos.UserHaveDiscountDAO;
 import linhnd.dtos.DiscountDTO;
 
 /**
@@ -16,12 +20,16 @@ import linhnd.dtos.DiscountDTO;
  * @author Duc Linh
  */
 public class DiscountJFrame extends javax.swing.JFrame {
+    DefaultTableModel tableModelDiscount = null;
+    
 
     /**
-     * Creates new form DiscountJFrame
+     * Creates new form ViewDiscountJFrame
      */
     public DiscountJFrame() {
         initComponents();
+        tableModelDiscount = (DefaultTableModel) tableViewDiscountList.getModel();
+        firstController();
     }
 
     /**
@@ -33,113 +41,260 @@ public class DiscountJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableViewDiscountList = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        txt_DiscountID = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txt_DiscountDes = new javax.swing.JTextArea();
+        txt_DiscountCode = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txt_discountCode = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txt_desDiscount = new javax.swing.JTextArea();
-        txt_codeDis = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        txt_date = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        tableViewDiscountList.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Discount ID", "Des Discount", "Code Discount", "Date Discount"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tableViewDiscountList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableViewDiscountListMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tableViewDiscountList);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 51, 0));
-        jLabel1.setText("CREATE DISCOUNT");
+        jLabel1.setText("LIST DISCOUNT");
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/linhnd/icons/icons8_create_30px.png"))); // NOI18N
-        jButton1.setText("CREATER");
+        jButton1.setText("ADD NEW DISCOUNT");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jLabel2.setText("DisCount Code :");
+        jLabel2.setText("Discount ID: ");
 
-        jLabel3.setText("Des Discount :");
+        jLabel3.setText("Discount Des :");
 
-        jLabel4.setText("Phần trăm :");
+        txt_DiscountDes.setColumns(20);
+        txt_DiscountDes.setRows(5);
+        jScrollPane2.setViewportView(txt_DiscountDes);
 
-        txt_desDiscount.setColumns(20);
-        txt_desDiscount.setRows(5);
-        jScrollPane1.setViewportView(txt_desDiscount);
+        jLabel4.setText("Discount Code:");
+
+        jButton2.setText("<-- Back");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/linhnd/icons/icons8_delete_20px.png"))); // NOI18N
+        jButton3.setText("DELETE DISCOUNT");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        txt_date.setText("date");
+
+        jButton4.setText("Clear");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(235, 235, 235)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(61, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(134, 134, 134)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(126, 126, 126)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 571, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(52, 52, 52))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(77, 77, 77)
+                        .addComponent(jButton2)
+                        .addGap(20, 20, 20))))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txt_discountCode)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
-                            .addComponent(txt_codeDis, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(118, Short.MAX_VALUE))
+                            .addComponent(jLabel4)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(jButton4)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txt_DiscountID, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_DiscountCode, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(77, 77, 77))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton1)
+                                .addGap(100, 100, 100)
+                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txt_date))
+                        .addContainerGap(98, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addGap(12, 12, 12)
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
-                .addGap(51, 51, 51)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txt_discountCode, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(45, 45, 45)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(35, 35, 35)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txt_codeDis, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
-                .addComponent(jButton1)
-                .addContainerGap(42, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton4))
+                        .addGap(35, 35, 35))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(txt_DiscountID, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txt_DiscountCode, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
+                        .addGap(18, 18, 18)
+                        .addComponent(txt_date)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String disDis = txt_discountCode.getText();
-        String desDis = txt_desDiscount.getText();
-        String codeDis = txt_codeDis.getText();
+        String disID = txt_DiscountID.getText();
+        String disCode = txt_DiscountCode.getText();
+        String disDes = txt_DiscountDes.getText();
         SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyy HH:mm:ss");
-        String dateDis = format.format(new Date());
-        if (!disDis.equals("")&&!desDis.equals("")&&!codeDis.equals("")) {
-            DiscountDTO dto = new DiscountDTO(codeDis, desDis, disDis, dateDis);
+        String disDate = format.format(new Date());
+        if (!disID.equals("") && !disCode.equals("") && !disDes.equals("")) {
             try {
                 DiscountDAO dao = new DiscountDAO();
-                if (dao.createNewDis(dto)) {
-                    JOptionPane.showMessageDialog(this, "Tạo code discount thành Công !");
-                    AdminJFrame ad = new AdminJFrame();
-                    ad.setVisible(true);
-                    this.dispose();
+                if (dao.checkCodeDis(disID)) {
+                    DiscountDTO dto = new DiscountDTO(disCode, disDes, disID, disDate);
+                    if (dao.createNewDis(dto)) {
+                        UserDAO daoUser = new UserDAO();
+                        UserHaveDiscountDAO daoUserHaveDis = new UserHaveDiscountDAO();
+                        List<String> listUserID = daoUser.getAllUserID();
+                        for (int i = 0; i < listUserID.size(); i++) {
+                            daoUserHaveDis.insertDisIntoUser(listUserID.get(i), disID);
+                        }
+                        JOptionPane.showConfirmDialog(this, "Add sucessfull !");
+                        firstController();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Fail.");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Code discount đã tồn tại.");
                 }
-                
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        AdminJFrame ad = new AdminJFrame();
+        ad.setVisible(true);
+        this.dispose();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void tableViewDiscountListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableViewDiscountListMouseClicked
+        int row = tableViewDiscountList.getSelectedRow();
+        String disID = (String) tableModelDiscount.getValueAt(row, 0);
+        txt_DiscountID.setText(disID);
+        String disDes = (String) tableModelDiscount.getValueAt(row, 1);
+        txt_DiscountDes.setText(disDes);
+        String disCode = (String) tableModelDiscount.getValueAt(row, 2);
+        txt_DiscountCode.setText(disCode);
+        String date = (String) tableModelDiscount.getValueAt(row, 3);
+        txt_date.setText(date);
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tableViewDiscountListMouseClicked
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        int row = tableViewDiscountList.getSelectedRow();
+        String disID = (String) tableModelDiscount.getValueAt(row, 0);
+        if (row >= 0) {
+            try {
+                DiscountDAO daoDis = new DiscountDAO();
+                UserHaveDiscountDAO daoUserHaveDis = new UserHaveDiscountDAO();
+                int confim = JOptionPane.showConfirmDialog(this, "Bạn có muốn xóa Discount " + disID);
+                if (confim == JOptionPane.YES_OPTION) {
+                    if (daoUserHaveDis.deleteDiscount(disID)) {
+                        if (daoDis.deleteDiscount(disID)) {
+                            JOptionPane.showMessageDialog(this, "Delete discount thành công.");
+                            firstController();
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        txt_DiscountID.setText("");
+        txt_DiscountDes.setText("");
+        txt_DiscountCode.setText("");
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -167,6 +322,7 @@ public class DiscountJFrame extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(DiscountJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -175,16 +331,40 @@ public class DiscountJFrame extends javax.swing.JFrame {
             }
         });
     }
+    private void firstController(){
+        try {
+            DiscountDAO dao = new DiscountDAO();
+            List<DiscountDTO> result = dao.getAllDiscount();
+            viewTable(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        txt_DiscountID.setText("");
+        txt_DiscountDes.setText("");
+        txt_DiscountCode.setText("");
+    }
+    private void viewTable(List<DiscountDTO> result) throws Exception{
+        tableModelDiscount.setRowCount(0);
+        for (DiscountDTO discountDTO : result) {
+            tableModelDiscount.addRow(discountDTO.toVectorDiscount());
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField txt_codeDis;
-    private javax.swing.JTextArea txt_desDiscount;
-    private javax.swing.JTextField txt_discountCode;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable tableViewDiscountList;
+    private javax.swing.JTextField txt_DiscountCode;
+    private javax.swing.JTextArea txt_DiscountDes;
+    private javax.swing.JTextField txt_DiscountID;
+    private javax.swing.JLabel txt_date;
     // End of variables declaration//GEN-END:variables
 }

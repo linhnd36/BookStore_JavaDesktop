@@ -9,6 +9,8 @@ import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import linhnd.conns.Myconnection;
 
 /**
@@ -50,6 +52,22 @@ public class UserDAO implements Serializable{
             closeConnection();
         }
         return role;
+    }
+    public List<String> getAllUserID()throws Exception{
+        List<String> result = new ArrayList<>();
+        try {
+            String sql  = "SELECT userID FROM dbo.Users ";
+            conn = Myconnection.getMyConnection();
+           preStm = conn.prepareStatement(sql);        
+            rs = preStm.executeQuery();
+            while (rs.next()) {                
+                String userID = rs.getString("userID");
+                result.add(userID);
+            }
+        }finally{
+            closeConnection();
+        }
+        return result;
     }
     
 }

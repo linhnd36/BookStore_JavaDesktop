@@ -378,7 +378,7 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
         jLabel13.setForeground(new java.awt.Color(255, 0, 0));
         jLabel13.setText("VND");
 
-        jButton7.setText("delete");
+        jButton7.setText("clear");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton7ActionPerformed(evt);
@@ -1055,6 +1055,7 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        txt_codePromo.enable();
         txt_userIDCart.setText(UserDTO.userID);
         JFrameCart.setSize(580, 830);
         JFrameCart.setVisible(true);

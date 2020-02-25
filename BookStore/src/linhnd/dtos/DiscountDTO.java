@@ -6,6 +6,7 @@
 package linhnd.dtos;
 
 import java.io.Serializable;
+import java.util.Vector;
 
 /**
  *
@@ -25,6 +26,14 @@ public class DiscountDTO implements Serializable{
         this.desDis = desDis;
         this.disID = disID;
         this.dateDis = dateDis;
+    }
+    public Vector toVectorDiscount(){
+        Vector v = new Vector();
+        v.add(disID);
+        v.add(desDis);
+        v.add(codeDis);
+        v.add(dateDis);
+        return  v;
     }
 
     public String getDateDis() {

@@ -141,5 +141,15 @@ VALUES  ( '' , -- bookID - varchar(30)
 		          N'' , -- descriptionDiscount - nvarchar(50)
 		          '' , -- codeDiscount - varchar(20)
 		          N''  -- DateDiscount - nchar(20)
-		        )
-	
+		        );
+
+
+SELECT discountID FROM dbo.Discount WHERE discountID = ?;
+INSERT dbo.UserHaveDiscount
+        ( discountID, userID )
+VALUES  ( '', -- discountID - varchar(20)
+          ''  -- userID - varchar(20)
+          );
+
+ ;
+	UPDATE dbo.Books SET statusBook = 'ready' WHERE bookID = 'Book6'

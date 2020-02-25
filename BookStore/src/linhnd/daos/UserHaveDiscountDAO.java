@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.List;
 import linhnd.conns.Myconnection;
 import linhnd.dtos.UserHaveDiscountDTO;
 
@@ -32,15 +33,44 @@ public class UserHaveDiscountDAO implements Serializable{
             conn.close();
         }
     }
-    
-    public boolean deleteDiscountOfTheUser(UserHaveDiscountDTO dto ) throws Exception  {
+
+    public boolean deleteDiscountOfTheUser(UserHaveDiscountDTO dto) throws Exception {
         boolean check = false;
         try {
-            String  sql = "DELETE dbo.UserHaveDiscount WHERE userID = ? AND discountID = ?";
+            String sql = "DELETE dbo.UserHaveDiscount WHERE userID = ? AND discountID = ?";
             conn = Myconnection.getMyConnection();
             preStm = conn.prepareStatement(sql);
             preStm.setString(1, dto.getUserID());
             preStm.setString(2, dto.getDiscountID());
+            check = preStm.executeUpdate() > 0;
+        } finally {
+            closeConnection();
+        }
+        return check;
+    }
+
+    public boolean insertDisIntoUser(String UserID, String disId) throws Exception {
+        boolean check = false;
+        try {
+            String sql = "INSERT dbo.UserHaveDiscount VALUES  (?,?)";
+            conn = Myconnection.getMyConnection();
+            preStm = conn.prepareStatement(sql);
+            preStm.setString(1, disId);
+            preStm.setString(2, UserID);
+            check = preStm.executeUpdate() > 0;
+        } finally {
+            closeConnection();
+        }
+        return check;
+    }
+    
+    public boolean deleteDiscount(String disID) throws Exception{
+        boolean check = false;
+        try {
+            String sql  = "DELETE dbo.UserHaveDiscount WHERE discountID = ? ";
+            conn = Myconnection.getMyConnection();
+            preStm = conn.prepareStatement(sql);
+            preStm.setString(1, disID);
             check = preStm.executeUpdate() > 0;
         }finally{
             closeConnection();
