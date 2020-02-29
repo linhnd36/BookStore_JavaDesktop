@@ -5,7 +5,12 @@
  */
 package linhnd.views;
 
+import com.paypal.base.rest.PayPalRESTException;
+import java.awt.Desktop;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,6 +30,8 @@ import linhnd.dtos.BuildDTO;
 import linhnd.dtos.DiscountDTO;
 import linhnd.dtos.UserDTO;
 import linhnd.dtos.UserHaveDiscountDTO;
+import linhnd.paypals.OrderDetail;
+import linhnd.paypals.PaymentServices;
 
 /**
  *
@@ -38,6 +45,7 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
     DefaultTableModel tableModekCart = null;
     DefaultTableModel tableModelNotification = null;
     DefaultTableModel tableModelHistoty = null;
+    DefaultTableModel tableModelPaymentOnline = null;
     ArrayList<BookDTO> listBookInCart = new ArrayList<>();
 
     /**
@@ -50,6 +58,7 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
         tableModekCart = (DefaultTableModel) tableViewCart.getModel();
         tableModelNotification = (DefaultTableModel) tableViewNotification.getModel();
         tableModelHistoty = (DefaultTableModel) tableViewHistory.getModel();
+        tableModelPaymentOnline = (DefaultTableModel) tableViewPaymentOnline.getModel();
         txt_UserID.setText(UserDTO.userID);
         firstController();
     }
@@ -144,6 +153,10 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
         jLabel29 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
+        PaymentOnlineJFrame = new javax.swing.JFrame();
+        jLabel32 = new javax.swing.JLabel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        tableViewPaymentOnline = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
@@ -157,6 +170,7 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
         txt_BookinCart = new javax.swing.JLabel();
         jButton9 = new javax.swing.JButton();
         jButton16 = new javax.swing.JButton();
+        jButton19 = new javax.swing.JButton();
 
         imagerBook.setBackground(new java.awt.Color(0, 0, 0));
         imagerBook.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imager/1.jpg"))); // NOI18N
@@ -833,6 +847,50 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
                 .addContainerGap(69, Short.MAX_VALUE))
         );
 
+        jLabel32.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel32.setText("Check build payment online");
+
+        tableViewPaymentOnline.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "BuildId", "Status"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane7.setViewportView(tableViewPaymentOnline);
+
+        javax.swing.GroupLayout PaymentOnlineJFrameLayout = new javax.swing.GroupLayout(PaymentOnlineJFrame.getContentPane());
+        PaymentOnlineJFrame.getContentPane().setLayout(PaymentOnlineJFrameLayout);
+        PaymentOnlineJFrameLayout.setHorizontalGroup(
+            PaymentOnlineJFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PaymentOnlineJFrameLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel32)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PaymentOnlineJFrameLayout.createSequentialGroup()
+                .addContainerGap(62, Short.MAX_VALUE)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(55, 55, 55))
+        );
+        PaymentOnlineJFrameLayout.setVerticalGroup(
+            PaymentOnlineJFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PaymentOnlineJFrameLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jLabel32)
+                .addGap(43, 43, 43)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(61, Short.MAX_VALUE))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/linhnd/icons/icons8_shopping_cart_30px.png"))); // NOI18N
@@ -922,6 +980,13 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
             }
         });
 
+        jButton19.setText("Check Build Paymentonline");
+        jButton19.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton19ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -957,6 +1022,8 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addComponent(jButton9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton19)
+                .addGap(34, 34, 34)
                 .addComponent(jButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27))
         );
@@ -984,7 +1051,8 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton9)
-                    .addComponent(jButton16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton19, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -1267,17 +1335,17 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
         } else if (radio_online.isSelected()) {
             payment = "online";
         }
-        if (payment != null && !adress.equals("")) {
+        totalBuild = txt_totalFinal.getText();
+        SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyy HH:mm:ss");
+        dateBuild = format.format(new Date());
+        buildId = UserDTO.userID + dateBuild;
+        discountID = txt_codePromo.getText();
+        userID = UserDTO.userID;
+        if (payment.equals("cod") && !adress.equals("")) {
             DiscountDAO daoPromotion = new DiscountDAO();
-            SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyy HH:mm:ss");
-            dateBuild = format.format(new Date());
-            buildId = UserDTO.userID + dateBuild;
-            totalBuild = txt_totalFinal.getText();
-            discountID = txt_codePromo.getText();
-            userID = UserDTO.userID;
             try {
                 if (daoPromotion.checkDiscount(userID, discountID)) {
-                    statusBuild = "Da thanh toan" + daoPromotion.getDiscountPro(discountID).getDesDis();
+                    statusBuild = "Da thanh toan " + daoPromotion.getDiscountPro(discountID).getDesDis();
                 } else {
                     statusBuild = "Da Thanh Toan";
                 }
@@ -1301,14 +1369,14 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
                         BookInBuildDAO daoBookInBuild = new BookInBuildDAO();
                         BookDAO daoBook = new BookDAO();
                         daoBookInBuild.insertBookInBuild(dtoBookInBuild);
-                        daoBook.updateQuantityBeforeBuy(bookID, quantity);                      
+                        daoBook.updateQuantityBeforeBuy(bookID, quantity);
                     }
                     JOptionPane.showMessageDialog(this, "Buy sucessfull !");
                     JFrameAdress.setVisible(false);
                     count = 0;
                     listBookInCart.clear();
                     txt_BookinCart.setText("0");
-                    firstController();                  
+                    firstController();
                 } else {
                     JOptionPane.showMessageDialog(this, "insert Fail !");
                 }
@@ -1317,7 +1385,68 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
                 JFrameAdress.setVisible(false);
                 e.printStackTrace();
             }
-
+// ================================================ Payment Online ==============================================
+        } else if (payment.equals("online") && !adress.equals("")) {
+            OrderDetail orderDetail = new OrderDetail(buildId, "0", "0", "0", totalBuild);
+            try {
+                PaymentServices paymentServices = new PaymentServices();
+                String approvalLink = paymentServices.authorizePayment(orderDetail);
+                try {
+                    try {
+                        Desktop.getDesktop().browse(new URL(approvalLink).toURI());
+                        DiscountDAO daoPromotion = new DiscountDAO();
+                        try {
+                            if (daoPromotion.checkDiscount(userID, discountID)) {
+                                statusBuild = "Waiting for checking" + daoPromotion.getDiscountPro(discountID).getDesDis();
+                            } else {
+                                statusBuild = "Waiting for checking";
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        String paymentOnlineStatus = "checking";
+                        desBuild = txt_inputAddress.getText();
+                        BuildDTO dto = new BuildDTO(buildId, dateBuild, totalBuild, payment, statusBuild, desBuild, userID, paymentOnlineStatus);
+                        BuildDAO dao = new BuildDAO();
+                        try {
+                            if (dao.insertBuildPaymentOnline(dto)) {
+                                if (daoPromotion.checkDiscount(userID, discountID)) {
+                                    UserHaveDiscountDAO daoDiscount = new UserHaveDiscountDAO();
+                                    UserHaveDiscountDTO dtoDiscount = new UserHaveDiscountDTO(discountID, userID);
+                                    daoDiscount.deleteDiscountOfTheUser(dtoDiscount);
+                                }
+                                for (BookDTO bookDTO : listBookInCart) {
+                                    bookID = bookDTO.getBookId();
+                                    quantity = String.valueOf(bookDTO.getQuantityUserBuy());
+                                    BookInBuildDTO dtoBookInBuild = new BookInBuildDTO(bookID, buildId, quantity);
+                                    BookInBuildDAO daoBookInBuild = new BookInBuildDAO();
+                                    BookDAO daoBook = new BookDAO();
+                                    daoBookInBuild.insertBookInBuild(dtoBookInBuild);
+                                    daoBook.updateQuantityBeforeBuy(bookID, quantity);
+                                }
+                                JOptionPane.showMessageDialog(this, "Pls checking your browser !");
+                                JFrameAdress.setVisible(false);
+                                count = 0;
+                                listBookInCart.clear();
+                                txt_BookinCart.setText("0");
+                                firstController();
+                            } else {
+                                JOptionPane.showMessageDialog(this, "insert Fail !");
+                            }
+                        } catch (Exception e) {
+                            JOptionPane.showConfirmDialog(this, "Buy Faild");
+                            JFrameAdress.setVisible(false);
+                            e.printStackTrace();
+                        }
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                } catch (URISyntaxException ex) {
+                    ex.printStackTrace();
+                }
+            } catch (PayPalRESTException e) {
+                e.printStackTrace();
+            }
         }
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton15ActionPerformed
@@ -1328,7 +1457,7 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
             List<BookDTO> listHistoty = dao.getHistory(UserDTO.userID);
             viewTableHistory(listHistoty);
             JFrameHistory.setSize(700, 600);
-        JFrameHistory.setVisible(true);
+            JFrameHistory.setVisible(true);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1375,13 +1504,33 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
         }
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton18ActionPerformed
+
+    private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton19ActionPerformed
+        PaymentOnlineJFrame.setSize(400, 500);
+        PaymentOnlineJFrame.setVisible(true);
+        try {
+            BuildDAO dao = new BuildDAO();
+            List<BuildDTO> result = dao.getListBuildOnline(UserDTO.userID);
+            viewTablePayment(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton19ActionPerformed
     private void viewTableBook(List<BookDTO> list) throws Exception {
         tableModelBook.setRowCount(0);
         for (BookDTO bookDTO : list) {
             tableModelBook.addRow(bookDTO.toVectorBookView());
         }
     }
-    private void viewTableHistory(List<BookDTO> list) throws Exception{
+    private void viewTablePayment(List<BuildDTO> list) throws Exception {
+        tableModelPaymentOnline.setRowCount(0);
+        for (BuildDTO buildDTO : list) {
+            tableModelPaymentOnline.addRow(buildDTO.toVector());
+        }
+    }
+
+    private void viewTableHistory(List<BookDTO> list) throws Exception {
         tableModelHistoty.setRowCount(0);
         for (BookDTO bookDTO : list) {
             tableModelHistoty.addRow(bookDTO.toVectorHistory());
@@ -1492,6 +1641,7 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
     private javax.swing.JFrame JFrameHistory;
     private javax.swing.JFrame JFrameNotification;
     private javax.swing.JFrame JFrameUpdateAmount;
+    private javax.swing.JFrame PaymentOnlineJFrame;
     private javax.swing.JButton btn_remove;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel imagerBook;
@@ -1505,6 +1655,7 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton16;
     private javax.swing.JButton jButton17;
     private javax.swing.JButton jButton18;
+    private javax.swing.JButton jButton19;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -1538,6 +1689,7 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1550,12 +1702,14 @@ public class UserShoppingJFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JRadioButton radio_cod;
     private javax.swing.JRadioButton radio_online;
     private javax.swing.JTable tableViewBook;
     private javax.swing.JTable tableViewCart;
     private javax.swing.JTable tableViewHistory;
     private javax.swing.JTable tableViewNotification;
+    private javax.swing.JTable tableViewPaymentOnline;
     private javax.swing.JLabel txt_BookinCart;
     private javax.swing.JLabel txt_IdBookInUpdate;
     private javax.swing.JLabel txt_Price;

@@ -6,13 +6,14 @@
 package linhnd.dtos;
 
 import java.io.Serializable;
+import java.util.Vector;
 
 /**
  *
  * @author Duc Linh
  */
 public class BuildDTO implements Serializable{
-    private String buildId,dateBuild,totalBuild,payment,statusBuild,desBuild,userD;
+    private String buildId,dateBuild,totalBuild,payment,statusBuild,desBuild,userD,paymentOnlineStatus;
 
     public BuildDTO(String buildId, String dateBuild, String totalBuild, String payment, String statusBuild, String desBuild, String userD) {
         this.buildId = buildId;
@@ -23,6 +24,38 @@ public class BuildDTO implements Serializable{
         this.desBuild = desBuild;
         this.userD = userD;
     }
+
+    public BuildDTO(String buildId, String dateBuild, String totalBuild, String payment, String statusBuild, String desBuild, String userD, String paymentOnlineStatus) {
+        this.buildId = buildId;
+        this.dateBuild = dateBuild;
+        this.totalBuild = totalBuild;
+        this.payment = payment;
+        this.statusBuild = statusBuild;
+        this.desBuild = desBuild;
+        this.userD = userD;
+        this.paymentOnlineStatus = paymentOnlineStatus;
+    }
+
+    public BuildDTO(String buildId, String paymentOnlineStatus) {
+        this.buildId = buildId;
+        this.paymentOnlineStatus = paymentOnlineStatus;
+    }
+    public Vector toVector(){
+        Vector v = new Vector();
+        v.add(buildId);
+        v.add(paymentOnlineStatus);
+        return v;
+    }
+    
+
+    public String getPaymentOnlineStatus() {
+        return paymentOnlineStatus;
+    }
+
+    public void setPaymentOnlineStatus(String paymentOnlineStatus) {
+        this.paymentOnlineStatus = paymentOnlineStatus;
+    }
+    
 
     public void setBuildId(String buildId) {
         this.buildId = buildId;
