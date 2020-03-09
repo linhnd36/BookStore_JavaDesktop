@@ -48,7 +48,7 @@ public class BuildDAO implements Serializable{
                     + "          ? , \n"
                     + "          ? ,\n"
                     + "          ? , \n"
-                    + "          ? \n"
+                    + "          ?,? \n"
                     + "        )";
             conn = Myconnection.getMyConnection();
             preStm =  conn.prepareStatement(sql);
@@ -59,6 +59,7 @@ public class BuildDAO implements Serializable{
             preStm.setString(5, dto.getStatusBuild());
             preStm.setString(6, dto.getDesBuild());
             preStm.setString(7, dto.getUserD());
+            preStm.setString(8, "done");
             check = preStm.executeUpdate() > 0;
         } finally {
             closeConnection();
