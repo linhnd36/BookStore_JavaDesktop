@@ -1,2 +1,2 @@
 # BookStore_JavaDesktop
-# App Desktop to manager BookStore
+ App Desktop to manager BookStore
